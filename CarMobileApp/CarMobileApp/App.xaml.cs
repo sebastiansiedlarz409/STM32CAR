@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarMobileApp.Views;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,8 +10,7 @@ namespace CarMobileApp
         public App()
         {
             InitializeComponent();
-
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new Sensor());
         }
 
         protected override void OnStart()

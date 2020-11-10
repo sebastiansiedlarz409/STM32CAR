@@ -10,12 +10,12 @@ using Xamarin.Forms.Xaml;
 namespace CarMobileApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Buttons : ContentPage
+    public partial class Sensor : ContentPage
     {
-        public Buttons()
+        public Sensor()
         {
             InitializeComponent();
-            BindingContext = new ButtonsViewModel(Navigation);
+            BindingContext = new SensorViewModel(Navigation);
         }
     }
 }
