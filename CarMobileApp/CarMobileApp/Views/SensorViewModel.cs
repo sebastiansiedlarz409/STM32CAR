@@ -23,6 +23,9 @@ namespace CarMobileApp.Views
         //event
         public event PropertyChangedEventHandler PropertyChanged;
 
+        //render object setter for x,y,z
+        public Action<int, int, int> SetRotation;
+
         public ICommand SwitchViewCommand { get; }
 
         public SensorViewModel()
@@ -90,6 +93,9 @@ namespace CarMobileApp.Views
             X = e.Reading.Acceleration.X;
             Y = e.Reading.Acceleration.Y;
             Z = e.Reading.Acceleration.Z;
+
+            if(SetRotation is { })
+                SetRotation((int)(X * 10), (int)(Y * 10), (int)(Z * 10));
 
             _sender.SendData(SenderMode.ACCELEROMETER, X, Y, Z);
         }

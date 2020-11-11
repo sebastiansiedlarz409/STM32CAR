@@ -14,7 +14,7 @@ namespace CarMobileApp._3D
 
         public Render3D(ApplicationOptions opts) : base(opts)
         {
-            
+
         }
 
         protected override async void Start()
@@ -48,17 +48,20 @@ namespace CarMobileApp._3D
             Camera camera = cameraNode.CreateComponent<Camera>();
 
             Renderer.SetViewport(0, new Viewport(scene, camera, null));
-
-            await _node.RunActionsAsync(
-                new RepeatForever(new RotateBy(duration: 1,
-                    deltaAngleX: 10, deltaAngleY: 90, deltaAngleZ: 0)));
         }
 
-        public void SetRotation(int X, int Y, int Z)
+        public async Task SetRotation(int X, int Y, int Z)
         {
             this.X = X;
-            this.Y = Y;
-            this.Z = Z;
+            this.Y = ((Y / 2) * -1);
+            this.Z = Z/5;
+
+            //up and down
+            //useless
+            //left right
+            await _node.RunActionsAsync(
+                new RepeatForever(new RotateBy(duration: 0.05f,
+                    deltaAngleX: Z/5, deltaAngleY: 0, deltaAngleZ: ((Y/2)*-1))));
         }
     }
 }

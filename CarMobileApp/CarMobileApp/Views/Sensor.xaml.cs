@@ -19,7 +19,10 @@ namespace CarMobileApp.Views
         {
             base.OnAppearing();
 
-            await Model3D.Show<Render3D>(new Urho.ApplicationOptions(assetsFolder: null));
+            var render = await Model3D.Show<Render3D>(new Urho.ApplicationOptions(assetsFolder: null));
+
+            //xdd
+            ((SensorViewModel)BindingContext).SetRotation = async (int x, int y, int z) => await render.SetRotation(x, y, z);
         }
     }
 }
