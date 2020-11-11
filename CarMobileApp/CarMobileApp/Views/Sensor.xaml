@@ -1,13 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:localVM="clr-namespace:CarMobileApp.Views"
+             xmlns:localVM="clr-namespace:CarMobileApp.Views" xmlns:urho="clr-namespace:Urho.Forms;assembly=UrhoSharp.Forms"
              x:Class="CarMobileApp.Views.Sensor"  
              NavigationPage.HasNavigationBar="false">
-    
-    <ContentPage.BindingContext>
-        <localVM:SensorViewModel />
-    </ContentPage.BindingContext>
 
     <!--Style for switch view button and label-->
     <ContentPage.Resources>
@@ -71,11 +67,15 @@
                         Grid.Row="1"
                         Grid.ColumnSpan="2"/>-->
 
-                <BoxView BackgroundColor="Gold"
+                <urho:UrhoSurface BackgroundColor="Gold"
                         Grid.Column="1"
                         Grid.Row="1"
                         Grid.ColumnSpan="8"
-                        Grid.RowSpan="8"/>
+                        Grid.RowSpan="8"
+                        x:Name="Model3D"
+                        VerticalOptions="FillAndExpand">
+
+                </urho:UrhoSurface>
 
             </Grid>
         </StackLayout>

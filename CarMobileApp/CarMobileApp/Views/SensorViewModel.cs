@@ -29,10 +29,10 @@ namespace CarMobileApp.Views
         {
             SwitchViewCommand = new Command(async () => await Switch());
 
-            Accelerometer.Start(SensorSpeed.Game);
-            Accelerometer.ReadingChanged += SensorUpdateEvent;
+            if(!Accelerometer.IsMonitoring)
+                Accelerometer.Start(SensorSpeed.Game);
 
-            //AR.Model();
+            Accelerometer.ReadingChanged += SensorUpdateEvent;
         }
 
         public SensorViewModel(INavigation navigation, DataSender sender) : this()

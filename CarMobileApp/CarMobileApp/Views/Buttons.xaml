@@ -5,10 +5,6 @@
              x:Class="CarMobileApp.Views.Buttons"
              NavigationPage.HasNavigationBar="false">
 
-    <ContentPage.BindingContext>
-        <localVM:ButtonsViewModel />
-    </ContentPage.BindingContext>
-    
     <!--Style for switch view button and label-->
     <ContentPage.Resources>
         <ResourceDictionary>
