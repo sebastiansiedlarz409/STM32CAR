@@ -71,7 +71,7 @@ namespace CarMobileApp.Views
         {
             get
             {
-                return $"X: {String.Format("{0:0.##}", X)} Y: {String.Format("{0:0.##}", Y)} Z: {String.Format("{0:0.##}", Z)}";
+                return $"X: {String.Format("{0:0.00}", X)} Y: {String.Format("{0:0.00}", Y)} Z: {String.Format("{0:0.00}", Z)}";
             }
         }
 
@@ -107,22 +107,31 @@ namespace CarMobileApp.Views
 
         public void Left()
         {
+            Y -= 0.2;
 
+            _sender.SendData(SenderMode.BUTTONS, X, Y, Z);
         }
 
         public void Right()
         {
+            Y += 0.2;
 
+            _sender.SendData(SenderMode.BUTTONS, X, Y, Z);
         }
 
         public void Throttle()
         {
+            Z += 0.1;
 
+            _sender.SendData(SenderMode.BUTTONS, X, Y, Z);
         }
 
         public void Stop()
         {
+            if (Z >= 0.1)
+                Z -= 0.1;
 
+            _sender.SendData(SenderMode.BUTTONS, X, Y, Z);
         }
 
         public async Task Switch()

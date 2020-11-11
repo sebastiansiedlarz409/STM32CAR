@@ -45,18 +45,37 @@
                     <RowDefinition Height="100*"/>
                     <RowDefinition Height="100*"/>
                     <RowDefinition Height="100*"/>
+                    <RowDefinition Height="100*"/>
+                    <RowDefinition Height="100*"/>
+                    <RowDefinition Height="100*"/>
+                    <RowDefinition Height="100*"/>
+                    <RowDefinition Height="100*"/>
+                    <RowDefinition Height="100*"/>
+                    <RowDefinition Height="100*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="25*" />
-                    <ColumnDefinition Width="25*" />
-                    <ColumnDefinition Width="25*" />
-                    <ColumnDefinition Width="25*" />
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="10*" />
                 </Grid.ColumnDefinitions>
 
-                <Button Text="Model" 
+                <!--<Button Text="Model" 
                         Grid.Column="1"
                         Grid.Row="1"
-                        Grid.ColumnSpan="2"/>
+                        Grid.ColumnSpan="2"/>-->
+
+                <BoxView BackgroundColor="Gold"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="8"
+                        Grid.RowSpan="8"/>
 
             </Grid>
         </StackLayout>

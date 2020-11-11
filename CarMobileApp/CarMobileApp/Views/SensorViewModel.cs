@@ -28,15 +28,17 @@ namespace CarMobileApp.Views
         public SensorViewModel()
         {
             SwitchViewCommand = new Command(async () => await Switch());
+
+            Accelerometer.Start(SensorSpeed.Game);
+            Accelerometer.ReadingChanged += SensorUpdateEvent;
+
+            //AR.Model();
         }
 
         public SensorViewModel(INavigation navigation, DataSender sender) : this()
         {
             this.navigation = navigation;
             _sender = sender;
-
-            Accelerometer.Start(SensorSpeed.Game);
-            Accelerometer.ReadingChanged += SensorUpdateEvent;
         }
 
         //this fuction notify property
@@ -49,7 +51,7 @@ namespace CarMobileApp.Views
         {
             get
             {
-                return $"X: {String.Format("{0:0.##}", X)} Y: {String.Format("{0:0.##}", Y)} Z: {String.Format("{0:0.##}", Z)}";
+                return $"X: {String.Format("{0:0.00}", X)} Y: {String.Format("{0:0.00}", Y)} Z: {String.Format("{0:0.00}", Z)}";
             }
         }
 
