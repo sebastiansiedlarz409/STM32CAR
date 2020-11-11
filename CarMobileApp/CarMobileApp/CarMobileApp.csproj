@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -11,8 +12,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\left.svg" />
+    <None Remove="Images\right.svg" />
+    <None Remove="Images\stop.svg" />
+    <None Remove="Images\throttle.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\left.svg" />
+    <EmbeddedResource Include="Images\right.svg" />
+    <EmbeddedResource Include="Images\stop.svg" />
+    <EmbeddedResource Include="Images\throttle.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="4.6.0.1141" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <PackageReference Include="Xamarin.Forms.Svg" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>

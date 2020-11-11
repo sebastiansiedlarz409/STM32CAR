@@ -1,18 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:CarMobileApp.Views"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:localVM="clr-namespace:CarMobileApp.Views"
              x:Class="CarMobileApp.Views.Sensor"  
              NavigationPage.HasNavigationBar="false">
     
     <ContentPage.BindingContext>
-        <local:SensorViewModel />
+        <localVM:SensorViewModel />
     </ContentPage.BindingContext>
+
+    <!--Style for switch view button-->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="buttonStyle" TargetType="Button">
+                <Setter Property="BorderColor" Value="DodgerBlue"/>
+                <Setter Property="BorderRadius" Value="10"/>
+                <Setter Property="TextColor" Value="#000000"/>
+                <Setter Property="BackgroundColor" Value="DodgerBlue"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="Margin" Value="5" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
 
             <Label Text="{Binding PrintValues}"></Label>
-            <Button Text="Przełącz Widok" Command="{Binding SwitchViewCommand}"/>
+            <Button Text="Przełącz Widok" 
+                    BackgroundColor="DodgerBlue"
+                    Style="{StaticResource buttonStyle}"
+                    Command="{Binding SwitchViewCommand}"/>
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -27,7 +45,10 @@
                     <ColumnDefinition Width="25*" />
                 </Grid.ColumnDefinitions>
 
-                <Button Text="Model" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
+                <Button Text="Model" 
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"/>
 
             </Grid>
         </StackLayout>

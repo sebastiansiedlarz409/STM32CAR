@@ -21,6 +21,11 @@ namespace CarMobileApp.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+
+            Xamarin.Forms.Svg.Droid.SvgImage.Init(this.BaseContext);
+
+            this.RequestedOrientation = ScreenOrientation.Landscape;
+
             LoadApplication(new App());
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

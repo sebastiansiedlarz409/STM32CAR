@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Svg;
 
 namespace CarMobileApp.Views
 {
@@ -11,7 +12,8 @@ namespace CarMobileApp.Views
         private double Yvalue;
         private double Zvalue;
 
-        private INavigation navigation;
+        //navigator to switch views
+        private readonly INavigation navigation;
 
         //event
         public event PropertyChangedEventHandler PropertyChanged;
@@ -19,17 +21,29 @@ namespace CarMobileApp.Views
         //commands, left, right, up, down, switch view
         public ICommand LeftCommand { get; }
         public ICommand RightCommand { get; }
-        public ICommand UpCommand { get; }
-        public ICommand DownCommand { get; }
+        public ICommand ThrottleCommand { get; }
+        public ICommand StopCommand { get; }
         public ICommand SwitchViewCommand { get; }
+
+        //images
+        public ImageSource LeftImage { get; set; }
+        public ImageSource RightImage { get; set; }
+        public ImageSource ThrottleImage { get; set; }
+        public ImageSource StopImage { get; set; }
 
         public ButtonsViewModel()
         {
             LeftCommand = new Command(Left);
             RightCommand = new Command(Right);
-            UpCommand = new Command(Up);
-            DownCommand = new Command(Down);
+            ThrottleCommand = new Command(Throttle);
+            StopCommand = new Command(Stop);
             SwitchViewCommand = new Command(async () => await Switch());
+
+            //specify resource's path 
+            LeftImage = SvgImageSource.FromSvgResource("Images.left.svg");
+            RightImage = SvgImageSource.FromSvgResource("Images.right.svg");
+            ThrottleImage = SvgImageSource.FromSvgResource("Images.throttle.svg");
+            StopImage = SvgImageSource.FromSvgResource("Images.stop.svg");
 
             X = 0;
             Y = 0;
@@ -95,12 +109,12 @@ namespace CarMobileApp.Views
 
         }
 
-        public void Up()
+        public void Throttle()
         {
 
         }
 
-        public void Down()
+        public void Stop()
         {
 
         }
@@ -109,6 +123,5 @@ namespace CarMobileApp.Views
         {
             await navigation.PushAsync(new Sensor());
         }
-
     }
 }

@@ -1,7 +1,6 @@
 ﻿using CarMobileApp.Views;
-using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+using Xamarin.Forms.Svg;
 
 namespace CarMobileApp
 {
@@ -10,6 +9,9 @@ namespace CarMobileApp
         public App()
         {
             InitializeComponent();
+
+            SvgImageSource.RegisterAssembly();
+
             MainPage = new NavigationPage(new Sensor());
         }
 

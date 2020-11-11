@@ -1,18 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:CarMobileApp.Views"
-             x:Class="CarMobileApp.Views.Buttons"  
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:localVM="clr-namespace:CarMobileApp.Views"
+             x:Class="CarMobileApp.Views.Buttons"
              NavigationPage.HasNavigationBar="false">
 
     <ContentPage.BindingContext>
-        <local:ButtonsViewModel />
+        <localVM:ButtonsViewModel />
     </ContentPage.BindingContext>
+    
+    <!--Style for switch view button-->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="buttonStyle" TargetType="Button">
+                <Setter Property="BorderColor" Value="DodgerBlue"/>
+                <Setter Property="BorderRadius" Value="10"/>
+                <Setter Property="TextColor" Value="#000000"/>
+                <Setter Property="BackgroundColor" Value="DodgerBlue"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="Margin" Value="5" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
 
             <Label Text="{Binding PrintValues}"></Label>
-            <Button Text="Przełącz Widok" Command="{Binding SwitchViewCommand}"/>
+            <Button Text="Przełącz Widok"
+                    Style="{StaticResource buttonStyle}"
+                    Command="{Binding SwitchViewCommand}"/>
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -20,17 +37,39 @@
                     <RowDefinition Height="100*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="25*" />
-                    <ColumnDefinition Width="50*" />
-                    <ColumnDefinition Width="25*" />
+                    <ColumnDefinition Width="32*" />
+                    <ColumnDefinition Width="38*" />
+                    <ColumnDefinition Width="32*" />
                 </Grid.ColumnDefinitions>
 
-                <Button Text="Left" Command="{Binding LeftCommand}" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"/>
-                <Button Text="Right" Command="{Binding RightCommand}" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2"/>
-                <Button Text="Up" Command="{Binding UpCommand}" Grid.Column="1" Grid.Row="0" />
-                <Button Text="Down" Command="{Binding DownCommand}" Grid.Column="1" Grid.Row="1" />
+                <ImageButton Source="{Binding LeftImage}" 
+                             Command="{Binding LeftCommand}"
+                             BackgroundColor="#FFFFFF"
+                             Grid.Column="0" 
+                             Grid.Row="0" 
+                             Grid.RowSpan="2"/>
+
+                <ImageButton Source="{Binding RightImage}" 
+                        Command="{Binding RightCommand}"
+                        BackgroundColor="#FFFFFF"
+                        Grid.Column="2"
+                        Grid.Row="0"
+                        Grid.RowSpan="2"/>
+
+                <ImageButton Source="{Binding ThrottleImage}" 
+                        Command="{Binding ThrottleCommand}"
+                        BackgroundColor="#FFFFFF"
+                        Grid.Column="1"
+                        Grid.Row="0" />
+                
+                <ImageButton Source="{Binding StopImage}" 
+                        Command="{Binding StopCommand}"
+                        BackgroundColor="#FFFFFF"
+                        Grid.Column="1"
+                        Grid.Row="1" />
 
             </Grid>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

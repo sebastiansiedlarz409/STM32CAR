@@ -15,6 +15,7 @@ namespace CarMobileApp.Views
         public Buttons()
         {
             InitializeComponent();
+
             BindingContext = new ButtonsViewModel(Navigation);
         }
     }

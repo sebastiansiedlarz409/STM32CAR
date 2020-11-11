@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Foundation;
+﻿using Foundation;
 using UIKit;
 
 namespace CarMobileApp.iOS
@@ -23,9 +19,17 @@ namespace CarMobileApp.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+
+            Xamarin.Forms.Svg.iOS.SvgImage.Init();
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
+        }
+
+        public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, UIWindow forWindow)
+        {
+            return UIInterfaceOrientationMask.Landscape;
         }
     }
 }

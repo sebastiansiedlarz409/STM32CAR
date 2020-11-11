@@ -11,7 +11,8 @@ namespace CarMobileApp.Views
         private double Yvalue = 0;
         private double Zvalue = 0;
 
-        private INavigation navigation;
+        //navigator to switch views
+        private readonly INavigation navigation;
 
         //event
         public event PropertyChangedEventHandler PropertyChanged;
