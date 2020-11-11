@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CarMobileApp.Sender;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -15,7 +11,7 @@ namespace CarMobileApp.Views
         public Sensor()
         {
             InitializeComponent();
-            BindingContext = new SensorViewModel(Navigation);
+            BindingContext = new SensorViewModel(Navigation, new DataSender());
         }
     }
 }

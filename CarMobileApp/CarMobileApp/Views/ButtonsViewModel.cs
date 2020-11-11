@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using CarMobileApp.Sender;
+using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -14,6 +16,9 @@ namespace CarMobileApp.Views
 
         //navigator to switch views
         private readonly INavigation navigation;
+
+        //sender
+        private readonly DataSender _sender;
 
         //event
         public event PropertyChangedEventHandler PropertyChanged;
@@ -50,9 +55,10 @@ namespace CarMobileApp.Views
             Z = 0;
         }
 
-        public ButtonsViewModel(INavigation navigation) : this()
+        public ButtonsViewModel(INavigation navigation, DataSender sender) : this()
         {
             this.navigation = navigation;
+            _sender = sender;
         }
 
         //this fuction notify property
@@ -65,7 +71,7 @@ namespace CarMobileApp.Views
         {
             get
             {
-                return $"X: {X} Y: {Y} Z: {Z}";
+                return $"X: {String.Format("{0:0.##}", X)} Y: {String.Format("{0:0.##}", Y)} Z: {String.Format("{0:0.##}", Z)}";
             }
         }
 

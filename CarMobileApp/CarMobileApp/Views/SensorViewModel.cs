@@ -1,7 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
+using CarMobileApp.Sender;
 
 namespace CarMobileApp.Views
 {
@@ -14,6 +17,9 @@ namespace CarMobileApp.Views
         //navigator to switch views
         private readonly INavigation navigation;
 
+        //sender
+        private readonly DataSender _sender;
+
         //event
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -24,9 +30,13 @@ namespace CarMobileApp.Views
             SwitchViewCommand = new Command(async () => await Switch());
         }
 
-        public SensorViewModel(INavigation navigation) : this()
+        public SensorViewModel(INavigation navigation, DataSender sender) : this()
         {
             this.navigation = navigation;
+            _sender = sender;
+
+            Accelerometer.Start(SensorSpeed.Game);
+            Accelerometer.ReadingChanged += SensorUpdateEvent;
         }
 
         //this fuction notify property
@@ -39,7 +49,7 @@ namespace CarMobileApp.Views
         {
             get
             {
-                return $"X: {X} Y: {Y} Z: {Z}";
+                return $"X: {String.Format("{0:0.##}", X)} Y: {String.Format("{0:0.##}", Y)} Z: {String.Format("{0:0.##}", Z)}";
             }
         }
 
@@ -73,8 +83,18 @@ namespace CarMobileApp.Views
             }
         }
 
+        public void SensorUpdateEvent(object sender, AccelerometerChangedEventArgs e)
+        {
+            X = e.Reading.Acceleration.X;
+            Y = e.Reading.Acceleration.Y;
+            Z = e.Reading.Acceleration.Z;
+
+            _sender.SendData(SenderMode.ACCELEROMETER, X, Y, Z);
+        }
+
         public async Task Switch()
         {
+            Accelerometer.Stop();
             await navigation.PushAsync(new Buttons());
         }
 

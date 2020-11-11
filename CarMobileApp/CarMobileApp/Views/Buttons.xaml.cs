@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using CarMobileApp.Sender;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace CarMobileApp.Views
@@ -10,7 +11,7 @@ namespace CarMobileApp.Views
         {
             InitializeComponent();
 
-            BindingContext = new ButtonsViewModel(Navigation);
+            BindingContext = new ButtonsViewModel(Navigation, new DataSender());
         }
     }
 }
