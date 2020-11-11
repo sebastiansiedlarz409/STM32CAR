@@ -22,7 +22,7 @@
                 <Setter Property="TextColor" Value="#000000"/>
                 <Setter Property="Margin" Value="10, 5, 0, 0" />
             </Style>
-            
+
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -62,19 +62,15 @@
                     <ColumnDefinition Width="10*" />
                 </Grid.ColumnDefinitions>
 
-                <!--<Button Text="Model" 
-                        Grid.Column="1"
-                        Grid.Row="1"
-                        Grid.ColumnSpan="2"/>-->
-
-                <urho:UrhoSurface BackgroundColor="Gold"
-                        Grid.Column="1"
-                        Grid.Row="1"
-                        Grid.ColumnSpan="8"
-                        Grid.RowSpan="8"
+                <urho:UrhoSurface
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="10"
+                        Grid.RowSpan="10"
                         x:Name="Model3D"
+                        BackgroundColor="Gold"
+                        Margin="5, 5, 5, 5"
                         VerticalOptions="FillAndExpand">
-
                 </urho:UrhoSurface>
 
             </Grid>

@@ -1,8 +1,5 @@
 ﻿using CarMobileApp._3D;
 using CarMobileApp.Sender;
-using Urho;
-using Urho.Forms;
-using Urho.Gui;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
