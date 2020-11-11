@@ -11,7 +11,7 @@
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
 
-            <Label Text="{Binding PrintValue}"></Label>
+            <Label Text="{Binding PrintValues}"></Label>
             <Button Text="Przełącz Widok" Command="{Binding SwitchViewCommand}"/>
 
             <Grid>
