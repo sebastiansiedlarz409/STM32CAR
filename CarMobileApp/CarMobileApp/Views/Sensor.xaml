@@ -9,9 +9,10 @@
         <localVM:SensorViewModel />
     </ContentPage.BindingContext>
 
-    <!--Style for switch view button-->
+    <!--Style for switch view button and label-->
     <ContentPage.Resources>
         <ResourceDictionary>
+            
             <Style x:Key="buttonStyle" TargetType="Button">
                 <Setter Property="BorderColor" Value="DodgerBlue"/>
                 <Setter Property="BorderRadius" Value="10"/>
@@ -20,13 +21,20 @@
                 <Setter Property="FontSize" Value="13"/>
                 <Setter Property="Margin" Value="5" />
             </Style>
+
+            <Style x:Key="labelStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="#000000"/>
+                <Setter Property="Margin" Value="10, 5, 0, 0" />
+            </Style>
+            
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
 
-            <Label Text="{Binding PrintValues}"></Label>
+            <Label Text="{Binding PrintValues}"
+                   Style="{StaticResource labelStyle}"/>
             <Button Text="Przełącz Widok" 
                     BackgroundColor="DodgerBlue"
                     Style="{StaticResource buttonStyle}"

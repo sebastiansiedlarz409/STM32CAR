@@ -1,10 +1,7 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.Views;
-using Android.Widget;
 using Android.OS;
 
 namespace CarMobileApp.Droid
@@ -23,6 +20,8 @@ namespace CarMobileApp.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             Xamarin.Forms.Svg.Droid.SvgImage.Init(this.BaseContext);
+
+            this.Window.AddFlags(WindowManagerFlags.Fullscreen);
 
             this.RequestedOrientation = ScreenOrientation.Landscape;
 
