@@ -68,6 +68,7 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <BundleResource Include="Resources\Data\Models\Car.mdl" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -135,5 +136,17 @@
       <Project>{6364E574-295C-4C89-B5E9-DD0015900037}</Project>
       <Name>CarMobileApp</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Data\Materials\Material.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Data\Models\Car.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Data\Objects\Scene.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Data\Car.xml" />
   </ItemGroup>
 </Project>

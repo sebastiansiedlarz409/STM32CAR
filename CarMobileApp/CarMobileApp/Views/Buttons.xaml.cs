@@ -7,7 +7,7 @@ namespace CarMobileApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Buttons : ContentPage
     {
-        private DataSender dataSender;
+        private readonly DataSender dataSender;
 
         public Buttons()
         {

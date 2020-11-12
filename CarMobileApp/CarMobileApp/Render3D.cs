@@ -1,7 +1,7 @@
 ﻿using System;
 using Urho;
 
-namespace CarMobileApp._3D
+namespace CarMobileApp
 {
     public class Render3D : Application
     {
@@ -30,13 +30,13 @@ namespace CarMobileApp._3D
 
             //scene
             _node = scene.CreateChild();
-            _node.Position = new Vector3(0, 0, 5);
-            _node.Rotation = new Quaternion(0, 0, 0); //up/down, left/right, angel
+            _node.Position = new Vector3(0, 4, 5);
+            _node.Rotation = new Quaternion(180, -90, 0);  //up/down, left/right, angel
             _node.SetScale(1f);
 
             //model
             StaticModel modelObject = _node.CreateComponent<StaticModel>();
-            modelObject.Model = ResourceCache.GetModel("Models/Cylinder.mdl");
+            modelObject.Model = ResourceCache.GetModel("Models/CarModel.mdl");
 
             //light
             Node light = scene.CreateChild(name: "light");
@@ -45,6 +45,7 @@ namespace CarMobileApp._3D
 
             //camera
             Node cameraNode = scene.CreateChild(name: "camera");
+            cameraNode.Position = new Vector3(0, 0, -16);
             Camera camera = cameraNode.CreateComponent<Camera>();
 
             //viewport
@@ -62,7 +63,9 @@ namespace CarMobileApp._3D
 
             try
             {
-                _node.Rotation = new Quaternion(this.Z, 0, this.Y); //up/down, left/right, angel
+                //_node.Rotation = new Quaternion(this.Z, 0, this.Y); //up/down, left/right, angel
+                _node.Rotation = new Quaternion(180 + this.Y, -90, this.Z); //up/down, left/right, angel (angel, ,)
+                //_node.Rotation = new Quaternion(180, 270, 0); //up/down, left/right, angel (angel, ,)
             }
             catch (InvalidOperationException)
             {

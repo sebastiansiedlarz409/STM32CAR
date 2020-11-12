@@ -1,6 +1,8 @@
-﻿using CarMobileApp._3D;
+﻿using CarMobileApp;
 using CarMobileApp.Sender;
+using System.Diagnostics;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.Xaml;
 
 namespace CarMobileApp.Views
@@ -8,7 +10,7 @@ namespace CarMobileApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Sensor : ContentPage
     {
-        private DataSender dataSender;
+        private readonly DataSender dataSender;
 
         public Sensor()
         {
@@ -29,7 +31,7 @@ namespace CarMobileApp.Views
                 await dataSender.StartScanning();
             }
 
-            var render = await Model3D.Show<Render3D>(new Urho.ApplicationOptions(assetsFolder: null));
+            var render = await Model3D.Show<Render3D>(new Urho.ApplicationOptions(assetsFolder: "Data"));
 
             //xdd
             ((SensorViewModel)BindingContext).SetRotation = render.SetRotation;

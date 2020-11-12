@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<node id="1">
+	<attribute name="Is Enabled" value="true" />
+	<attribute name="Name" value="Scene" />
+	<attribute name="Tags" />
+	<attribute name="Variables" />
+	<node id="2">
+		<attribute name="Is Enabled" value="true" />
+		<attribute name="Name" value="CarModel" />
+		<attribute name="Tags" />
+		<attribute name="Variables" />
+		<component id="1" type="StaticModel">
+			<attribute name="Model" value="Model;Models/CarModel.mdl" />
+			<attribute name="Material" value="Material;Materials/Material.xml" />
+		</component>
+	</node>
+</node>

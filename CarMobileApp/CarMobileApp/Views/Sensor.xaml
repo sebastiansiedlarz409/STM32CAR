@@ -27,6 +27,7 @@
                 <Setter Property="CornerRadius" Value="10"/>
                 <Setter Property="BackgroundColor" Value="#3f3f3f"/>
                 <Setter Property="Margin" Value="5, 5, 5, 5" />
+                <Setter Property="Padding" Value="4, 4, 4, 4" />
             </Style>
 
         </ResourceDictionary>
