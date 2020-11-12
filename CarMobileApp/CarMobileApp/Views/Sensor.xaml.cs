@@ -22,7 +22,7 @@ namespace CarMobileApp.Views
             var render = await Model3D.Show<Render3D>(new Urho.ApplicationOptions(assetsFolder: null));
 
             //xdd
-            ((SensorViewModel)BindingContext).SetRotation = async (int x, int y, int z) => await render.SetRotation(x, y, z);
+            ((SensorViewModel)BindingContext).SetRotation = render.SetRotation;
         }
     }
 }

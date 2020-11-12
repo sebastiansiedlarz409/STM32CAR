@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using Urho;
-using Urho.Actions;
+﻿using Urho;
 
 namespace CarMobileApp._3D
 {
@@ -17,21 +15,21 @@ namespace CarMobileApp._3D
 
         }
 
-        protected override async void Start()
+        protected override void Start()
         {
             base.Start();
 
-            await Render();
+            Render();
         }
 
-        private async Task Render()
+        private void Render()
         {
             var scene = new Scene();
             scene.CreateComponent<Octree>();
 
             _node = scene.CreateChild();
             _node.Position = new Vector3(0, 0, 5);
-            _node.Rotation = new Quaternion(90, 0, 0);
+            _node.Rotation = new Quaternion(0, 0, 0); //up/down, left/right, angel
             _node.SetScale(1f);
 
             //model
@@ -50,18 +48,13 @@ namespace CarMobileApp._3D
             Renderer.SetViewport(0, new Viewport(scene, camera, null));
         }
 
-        public async Task SetRotation(int X, int Y, int Z)
+        public void SetRotation(int X, int Y, int Z)
         {
             this.X = X;
-            this.Y = ((Y / 2) * -1);
-            this.Z = Z/5;
+            this.Y = Y * -4;
+            this.Z = Z * 4;
 
-            //up and down
-            //useless
-            //left right
-            await _node.RunActionsAsync(
-                new RepeatForever(new RotateBy(duration: 0.05f,
-                    deltaAngleX: Z/5, deltaAngleY: 0, deltaAngleZ: ((Y/2)*-1))));
+            _node.Rotation = new Quaternion(this.Z, 0, this.Y); //up/down, left/right, angel
         }
     }
 }

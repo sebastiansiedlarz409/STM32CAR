@@ -33,7 +33,7 @@ namespace CarMobileApp.Views
             SwitchViewCommand = new Command(async () => await Switch());
 
             if(!Accelerometer.IsMonitoring)
-                Accelerometer.Start(SensorSpeed.Game);
+                Accelerometer.Start(SensorSpeed.Default);
 
             Accelerometer.ReadingChanged += SensorUpdateEvent;
         }
