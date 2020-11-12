@@ -60,6 +60,12 @@ static void MX_TIM1_Init(void);
 static void MX_USART3_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
+int __io_putchar(int ch)
+{
+	HAL_UART_Transmit(&huart3, (uint8_t*)&ch, 1, 1000);
+	return ch;
+}
+
 void SetPWM(uint8_t channelIndex, uint32_t value){
 	TIM_OC_InitTypeDef sConfigOC = {0};
 
@@ -130,6 +136,8 @@ int main(void)
   MX_TIM1_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
+
+  printf("STARTED\r\n");
 
   /* USER CODE END 2 */
 
