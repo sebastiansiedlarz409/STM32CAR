@@ -44,7 +44,7 @@ namespace CarMobileApp.Views
             StopCommand = new Command(Stop);
             SwitchViewCommand = new Command(async () => await Switch());
 
-            //specify resource's path 
+            //specify resource's path
             LeftImage = SvgImageSource.FromSvgResource("Images.left.svg");
             RightImage = SvgImageSource.FromSvgResource("Images.right.svg");
             ThrottleImage = SvgImageSource.FromSvgResource("Images.throttle.svg");

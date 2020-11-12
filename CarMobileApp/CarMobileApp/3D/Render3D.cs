@@ -1,4 +1,5 @@
-﻿using Urho;
+﻿using System;
+using Urho;
 
 namespace CarMobileApp._3D
 {
@@ -27,6 +28,7 @@ namespace CarMobileApp._3D
             var scene = new Scene();
             scene.CreateComponent<Octree>();
 
+            //scene
             _node = scene.CreateChild();
             _node.Position = new Vector3(0, 0, 5);
             _node.Rotation = new Quaternion(0, 0, 0); //up/down, left/right, angel
@@ -45,7 +47,11 @@ namespace CarMobileApp._3D
             Node cameraNode = scene.CreateChild(name: "camera");
             Camera camera = cameraNode.CreateComponent<Camera>();
 
+            //viewport
             Renderer.SetViewport(0, new Viewport(scene, camera, null));
+
+            //background color
+            Renderer.GetViewport(0).SetClearColor(new Color() { R = 0.247f, G = 0.247f, B = 0.247f });
         }
 
         public void SetRotation(int X, int Y, int Z)
@@ -54,7 +60,14 @@ namespace CarMobileApp._3D
             this.Y = Y * -4;
             this.Z = Z * 4;
 
-            _node.Rotation = new Quaternion(this.Z, 0, this.Y); //up/down, left/right, angel
+            try
+            {
+                _node.Rotation = new Quaternion(this.Z, 0, this.Y); //up/down, left/right, angel
+            }
+            catch (InvalidOperationException)
+            {
+                return;
+            }
         }
     }
 }

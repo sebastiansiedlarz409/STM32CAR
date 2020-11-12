@@ -24,5 +24,10 @@ namespace CarMobileApp.Views
             //xdd
             ((SensorViewModel)BindingContext).SetRotation = render.SetRotation;
         }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+        }
     }
 }

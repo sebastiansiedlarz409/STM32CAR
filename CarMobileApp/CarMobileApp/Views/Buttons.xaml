@@ -23,6 +23,11 @@
                 <Setter Property="Margin" Value="10, 5, 0, 0" />
             </Style>
 
+            <Style x:Key="navsStyle" TargetType="ImageButton">
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="BackgroundColor" Value="#3f3f3f"/>
+            </Style>
+
             <Style x:Key="gridStyle" TargetType="Grid">
                 <Setter Property="Margin" Value="5, 5, 5, 5" />
             </Style>
@@ -31,7 +36,8 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical"
+                     BackgroundColor="#7a7a7a">
 
             <Label Text="{Binding PrintValues}"
                    Style="{StaticResource labelStyle}"/>
@@ -52,27 +58,27 @@
 
                 <ImageButton Source="{Binding LeftImage}" 
                              Command="{Binding LeftCommand}"
-                             BackgroundColor="#FFFFFF"
+                             Style="{StaticResource navsStyle}"
                              Grid.Column="0" 
                              Grid.Row="0" 
                              Grid.RowSpan="2"/>
 
                 <ImageButton Source="{Binding RightImage}" 
                         Command="{Binding RightCommand}"
-                        BackgroundColor="#FFFFFF"
+                        Style="{StaticResource navsStyle}"
                         Grid.Column="2"
                         Grid.Row="0"
                         Grid.RowSpan="2"/>
 
                 <ImageButton Source="{Binding ThrottleImage}" 
                         Command="{Binding ThrottleCommand}"
-                        BackgroundColor="#FFFFFF"
+                        Style="{StaticResource navsStyle}"
                         Grid.Column="1"
                         Grid.Row="0" />
                 
                 <ImageButton Source="{Binding StopImage}" 
                         Command="{Binding StopCommand}"
-                        BackgroundColor="#FFFFFF"
+                        Style="{StaticResource navsStyle}"
                         Grid.Column="1"
                         Grid.Row="1" />
 

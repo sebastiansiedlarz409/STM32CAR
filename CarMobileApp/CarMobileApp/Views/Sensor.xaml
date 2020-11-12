@@ -23,11 +23,18 @@
                 <Setter Property="Margin" Value="10, 5, 0, 0" />
             </Style>
 
+            <Style x:Key="surfaceStyle" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="BackgroundColor" Value="#3f3f3f"/>
+                <Setter Property="Margin" Value="5, 5, 5, 5" />
+            </Style>
+
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical"
+                     BackgroundColor="#7a7a7a">
 
             <Label Text="{Binding PrintValues}"
                    Style="{StaticResource labelStyle}"/>
@@ -62,16 +69,18 @@
                     <ColumnDefinition Width="10*" />
                 </Grid.ColumnDefinitions>
 
-                <urho:UrhoSurface
-                        Grid.Column="0"
+                <Frame  Grid.Column="0"
                         Grid.Row="0"
                         Grid.ColumnSpan="10"
                         Grid.RowSpan="10"
+                        Style="{StaticResource surfaceStyle}">
+
+                    <urho:UrhoSurface
                         x:Name="Model3D"
-                        BackgroundColor="Gold"
-                        Margin="5, 5, 5, 5"
                         VerticalOptions="FillAndExpand">
-                </urho:UrhoSurface>
+                    </urho:UrhoSurface>
+
+                </Frame>
 
             </Grid>
         </StackLayout>
