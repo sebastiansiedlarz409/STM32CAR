@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using Plugin.BLE;
+using Plugin.BLE.Abstractions.Contracts;
 
 namespace CarMobileApp.Sender
 {
     public class DataSender
     {
+        //private IBluetoothLE BLE = CrossBluetoothLE.Current;
+        //private IAdapter adapter = CrossBluetoothLE.Current.Adapter;
+
         public DataSender()
         {
 
