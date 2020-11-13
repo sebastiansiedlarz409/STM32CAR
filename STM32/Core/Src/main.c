@@ -111,15 +111,28 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 
 void SetName(void)
 {
-	uint8_t response[4] = {0, 0};
+	uint8_t response[2] = {0, 0};
 
-	char cmd[] = "AT+NAMEstm32car\r\n";
+	char cmd[] = "AT+NAMEstm32car";
 
 	HAL_UART_Transmit(&huart1, (uint8_t*)cmd, strlen(cmd), 100);
 
 	HAL_UART_Receive(&huart1, response, 2, 2000);
 
 	printf("Name Response: %c%c \r\n", (char)response[0], (char)response[1]);
+}
+
+void SetPIN(void)
+{
+	uint8_t response[3] = {0, 0, 0};
+
+	char cmd[] = "AT+PIN1997";
+
+	HAL_UART_Transmit(&huart1, (uint8_t*)cmd, strlen(cmd), 100);
+
+	HAL_UART_Receive(&huart1, response, 2, 2000);
+
+	printf("PIN Response: %c%c \r\n", (char)response[0], (char)response[1]);
 }
 
 /* USER CODE END PFP */
@@ -164,6 +177,7 @@ int main(void)
   printf("STARTED\r\n");
 
   SetName();
+  SetPIN();
 
   /* USER CODE END 2 */
 
