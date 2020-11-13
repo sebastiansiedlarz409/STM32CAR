@@ -50,7 +50,7 @@ UART_HandleTypeDef huart3;
 uint32_t PWM1 = 0;
 uint32_t PWM2 = 0;
 
-uint8_t dataUART1[2] = {99,99};
+uint8_t dataUART1[4] = {99,99,99,99};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -198,8 +198,8 @@ int main(void)
   {
 	printf("LOOP\r\n");
 	//HAL_Delay(2000);
-	HAL_UART_Receive(&huart1, dataUART1, 2, 1000);
-	printf("Data: %c%c \r\n", (char)dataUART1[0], (char)dataUART1[1]);
+	HAL_UART_Receive(&huart1, dataUART1, 4, 1000);
+	printf("Data: %c%c%c%c \r\n", (char)dataUART1[0], (char)dataUART1[1], (char)dataUART1[2], (char)dataUART1[3]);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

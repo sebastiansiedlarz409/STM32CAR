@@ -7,4 +7,4 @@ port = 1
 
 s = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 s.connect((addr,port))
-s.send("AB")
+s.send(chr(65)+chr(76)+chr(67)+chr(68))
