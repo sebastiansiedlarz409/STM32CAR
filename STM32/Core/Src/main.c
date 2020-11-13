@@ -50,6 +50,9 @@ UART_HandleTypeDef huart3;
 /* USER CODE BEGIN PV */
 uint32_t PWM1 = 0;
 uint32_t PWM2 = 0;
+
+uint8_t dataUART2[1];
+uint8_t dataUART3[1];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -62,11 +65,12 @@ static void MX_USART3_UART_Init(void);
 
 int __io_putchar(int ch)
 {
-	HAL_UART_Transmit(&huart3, (uint8_t*)&ch, 1, 1000);
+	HAL_UART_Transmit(&huart3, (uint8_t*)&ch, 1, 100);
 	return ch;
 }
 
-void SetPWM(uint8_t channelIndex, uint32_t value){
+void SetPWM(uint8_t channelIndex, uint32_t value)
+{
 	TIM_OC_InitTypeDef sConfigOC = {0};
 
 	sConfigOC.OCMode = TIM_OCMODE_PWM1;
@@ -93,6 +97,16 @@ void SetPWM(uint8_t channelIndex, uint32_t value){
 		{
 			Error_Handler();
 		}
+	}
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	printf("INT\r\n");
+
+	if(huart->Instance == USART2){
+		printf("\n\rUSART2 Rx Callback\n\r");
+		HAL_UART_Receive_IT(&huart2, dataUART2, 1);
 	}
 
 }
@@ -139,12 +153,18 @@ int main(void)
 
   printf("STARTED\r\n");
 
+  HAL_UART_Receive_IT(&huart2, dataUART2, 1);
+
+  printf("ENABLE IT\r\n");
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	printf("LOOP\r\n");
+	HAL_Delay(2000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
