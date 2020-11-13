@@ -109,30 +109,43 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 
 }
 
+void SetBaud(void)
+{
+	uint8_t responseB[2] = {0, 0};
+
+	char cmd[] = "AT+BAUD4";
+
+	HAL_UART_Transmit(&huart1, (uint8_t*)cmd, strlen(cmd), 100);
+	HAL_Delay(100);
+	HAL_UART_Receive(&huart1, responseB, 2, 2000);
+
+	printf("Baud Response: %c%c \r\n", (char)responseB[0], (char)responseB[1]);
+}
+
 void SetName(void)
 {
-	uint8_t response[2] = {0, 0};
+	uint8_t responseN[2] = {0, 0};
 
 	char cmd[] = "AT+NAMEstm32car";
 
 	HAL_UART_Transmit(&huart1, (uint8_t*)cmd, strlen(cmd), 100);
+	HAL_Delay(100);
+	HAL_UART_Receive(&huart1, responseN, 2, 2000);
 
-	HAL_UART_Receive(&huart1, response, 2, 2000);
-
-	printf("Name Response: %c%c \r\n", (char)response[0], (char)response[1]);
+	printf("Name Response: %c%c \r\n", (char)responseN[0], (char)responseN[1]);
 }
 
 void SetPIN(void)
 {
-	uint8_t response[3] = {0, 0, 0};
+	uint8_t responseP[2] = {0, 0};
 
 	char cmd[] = "AT+PIN1997";
 
 	HAL_UART_Transmit(&huart1, (uint8_t*)cmd, strlen(cmd), 100);
+	HAL_Delay(100);
+	HAL_UART_Receive(&huart1, responseP, 2, 2000);
 
-	HAL_UART_Receive(&huart1, response, 2, 2000);
-
-	printf("PIN Response: %c%c \r\n", (char)response[0], (char)response[1]);
+	printf("PIN Response: %c%c \r\n", (char)responseP[0], (char)responseP[1]);
 }
 
 /* USER CODE END PFP */
@@ -176,6 +189,7 @@ int main(void)
 
   printf("STARTED\r\n");
 
+  SetBaud();
   SetName();
   SetPIN();
 
