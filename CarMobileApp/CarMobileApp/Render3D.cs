@@ -63,9 +63,7 @@ namespace CarMobileApp
 
             try
             {
-                //_node.Rotation = new Quaternion(this.Z, 0, this.Y); //up/down, left/right, angel
-                _node.Rotation = new Quaternion(180 + this.Y, -90, this.Z); //up/down, left/right, angel (angel, ,)
-                //_node.Rotation = new Quaternion(180, 270, 0); //up/down, left/right, angel (angel, ,)
+                _node.Rotation = new Quaternion(180 + this.Y, -90, this.Z); //up/down, left/right, angel
             }
             catch (InvalidOperationException)
             {
