@@ -14,6 +14,8 @@ namespace CarMobileApp.Views
         private double Yvalue = 0;
         private double Zvalue = 0;
 
+        private int counter = 0;
+
         //navigator to switch views
         private readonly INavigation navigation;
 
@@ -33,7 +35,7 @@ namespace CarMobileApp.Views
             SwitchViewCommand = new Command(async () => await Switch());
 
             if(!Accelerometer.IsMonitoring)
-                Accelerometer.Start(SensorSpeed.Default);
+                Accelerometer.Start(SensorSpeed.UI);
 
             Accelerometer.ReadingChanged += SensorUpdateEvent;
         }
@@ -97,7 +99,17 @@ namespace CarMobileApp.Views
             if(SetRotation is { })
                 SetRotation((int)(X * 10), (int)(Y * 10), (int)(Z * 10));
 
-            _sender.SendData(SenderMode.ACCELEROMETER, (int)(X * 10), (int)(Y * 10), (int)(Z * 10));
+
+            if(counter == 50)
+            {
+                _sender.SendData(SenderMode.ACCELEROMETER, (int)(X * 10), (int)(Y * 10), (int)(Z * 10));
+                counter = 0;
+            }
+            else
+            {
+                counter++;
+            }
+            
         }
 
         public async Task Switch()

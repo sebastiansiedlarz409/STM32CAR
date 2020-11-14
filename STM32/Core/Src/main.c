@@ -97,61 +97,40 @@ int __io_putchar(int ch)
 	}
 }*/
 
-/*void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
-	//HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
-
-	if(huart->Instance == USART1){
-		HAL_NVIC_ClearPendingIRQ(USART1_IRQn);
-
-		printf("\n\rUSART1 Rx Callback\n\r");
-		HAL_UART_Receive_IT(&huart1, dataUART1, 2);
-	}
-
-}*/
-
 void SetBaud(void)
 {
-	uint8_t responseB[2] = {0, 0};
-
 	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+BAUD4", strlen("AT+BAUD4"), 100);
-
-	HAL_UART_Receive(&huart1, responseB, 2, 2000);
-
-	printf("Baud Response: %c%c \r\n", (char)responseB[0], (char)responseB[1]);
 }
 
 void SetName(void)
 {
-	uint8_t responseN[2] = {0, 0};
-
 	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+NAMEstm32car", strlen("AT+NAMEstm32car"), 100);
-
-	HAL_UART_Receive(&huart1, responseN, 2, 2000);
-
-	printf("Name Response: %c%c \r\n", (char)responseN[0], (char)responseN[1]);
 }
 
 void SetPIN(void)
 {
-	uint8_t responseP[2] = {0, 0};
-
 	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+PIN1991", strlen("AT+PIN1991"), 100);
-
-	HAL_UART_Receive(&huart1, responseP, 2, 2000);
-
-	printf("PIN Response: %c%c \r\n", (char)responseP[0], (char)responseP[1]);
 }
 
-void AnalyzeData()
+void AnalyzeData(void)
 {
-	if(dataUART1[0] == 'A'){
+	printf("Mode: %c, Values: %c%u %c%u %c%u\r\n", (char)dataUART1[0], (char)dataUART1[1], dataUART1[2], (char)dataUART1[3], dataUART1[4], (char)dataUART1[5], dataUART1[6]);
+
+
+	/*if(dataUART1[0] == 'A'){
 		//printf("ACCELEROMETER\r\n");
 	}
 
 	if(dataUART1[0] == 'B'){
 		//printf("BUTTONS");
-	}
+	}*/
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	AnalyzeData();
+
+	HAL_UART_Receive_IT(&huart1, dataUART1, 7);
 }
 
 /* USER CODE END PFP */
@@ -199,7 +178,9 @@ int main(void)
   SetName();
   SetPIN();
 
-  //HAL_UART_Receive_IT(&huart1, dataUART1, 2);
+  printf("Config sent\r\n");
+
+  HAL_UART_Receive_IT(&huart1, dataUART1, 7);
 
   /* USER CODE END 2 */
 
@@ -207,13 +188,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	printf("LOOP\r\n");
-	//HAL_Delay(2000);
-
 	HAL_UART_Receive(&huart1, dataUART1, 7, 1000);
-	printf("Data: %c%c%c%c%c%c%c \r\n", (char)dataUART1[0], (char)dataUART1[1], (char)dataUART1[2], (char)dataUART1[3], (char)dataUART1[4], (char)dataUART1[5], (char)dataUART1[6]);
 
-	AnalyzeData();
+	//AnalyzeData();
 
     /* USER CODE END WHILE */
 

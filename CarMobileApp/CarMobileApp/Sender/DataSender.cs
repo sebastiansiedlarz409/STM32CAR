@@ -30,26 +30,26 @@ namespace CarMobileApp.Sender
                 data[0] = (byte)'A';
 
                 data[1] = x < 0 ? (byte)'-' : (byte)'+';
-                data[2] = (byte)(x + 65);
+                data[2] = (byte)(x < 0 ? x * -1 : x);
 
                 data[3] = y < 0 ? (byte)'-' : (byte)'+';
-                data[4] = (byte)(y + 65);
+                data[4] = (byte)(y < 0 ? y * -1 : y);
 
                 data[5] = z < 0 ? (byte)'-' : (byte)'+';
-                data[6] = (byte)(z + 65);
+                data[6] = (byte)(z < 0 ? z * -1 : z);
             }
             else
             {
                 data[0] = (byte)'B';
 
                 data[1] = x < 0 ? (byte)'-' : (byte)'+';
-                data[2] = (byte)(x + 65);
+                data[2] = (byte)(x < 0 ? x * -1 : x);
 
                 data[3] = y < 0 ? (byte)'-' : (byte)'+';
-                data[4] = (byte)(y + 65);
+                data[4] = (byte)(y < 0 ? y * -1 : y);
 
                 data[5] = z < 0 ? (byte)'-' : (byte)'+';
-                data[6] = (byte)(z + 65);
+                data[6] = (byte)(z < 0 ? z * -1 : z);
             }
 
             if (bt.IsConnected())
