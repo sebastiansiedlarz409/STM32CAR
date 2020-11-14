@@ -109,21 +109,21 @@ namespace CarMobileApp.Views
         {
             Y -= 0.2;
 
-            //_sender.SendData(SenderMode.BUTTONS, X, Y, Z);
+            _sender.SendData(SenderMode.BUTTONS, (int)(X * 10), (int)(Y * 10), (int)(Z * 10));
         }
 
         public void Right()
         {
             Y += 0.2;
 
-            //_sender.SendData(SenderMode.BUTTONS, X, Y, Z);
+            _sender.SendData(SenderMode.BUTTONS, (int)(X * 10), (int)(Y * 10), (int)(Z * 10));
         }
 
         public void Throttle()
         {
             Z += 0.1;
 
-            //_sender.SendData(SenderMode.BUTTONS, X, Y, Z);
+            _sender.SendData(SenderMode.BUTTONS, (int)(X * 10), (int)(Y * 10), (int)(Z * 10));
         }
 
         public void Stop()
@@ -131,7 +131,7 @@ namespace CarMobileApp.Views
             if (Z >= 0.1)
                 Z -= 0.1;
 
-            //_sender.SendData(SenderMode.BUTTONS, X, Y, Z);
+            _sender.SendData(SenderMode.BUTTONS, (int)(X * 10), (int)(Y * 10), (int)(Z * 10));
         }
 
         public async Task Switch()
