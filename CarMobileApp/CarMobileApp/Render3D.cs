@@ -25,14 +25,15 @@ namespace CarMobileApp
 
         private void Render()
         {
+            //scene
             var scene = new Scene();
             scene.CreateComponent<Octree>();
 
-            //scene
+            //model
             _node = scene.CreateChild();
             _node.Position = new Vector3(0, 4, 5);
             _node.Rotation = new Quaternion(180, -90, 0);  //up/down, left/right, angel
-            _node.SetScale(1f);
+            _node.Scale = new Vector3(1, 1, 3);
 
             //model
             StaticModel modelObject = _node.CreateComponent<StaticModel>();
@@ -40,8 +41,10 @@ namespace CarMobileApp
 
             //light
             Node light = scene.CreateChild(name: "light");
-            light.SetDirection(new Vector3(0.4f, -0.5f, 0.3f));
-            light.CreateComponent<Light>();
+            light.SetScale(30);
+            light.SetDirection(new Vector3(0, 0, 1));
+            light.Position = new Vector3(0, 4, -12);
+            light.CreateComponent<Light>().LightType = LightType.Directional;
 
             //camera
             Node cameraNode = scene.CreateChild(name: "camera");
