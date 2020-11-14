@@ -66,7 +66,7 @@ int __io_putchar(int ch)
 	return ch;
 }
 
-/*void SetPWM(uint8_t channelIndex, uint32_t value)
+void SetPWM(uint8_t channelIndex, uint32_t value)
 {
 	TIM_OC_InitTypeDef sConfigOC = {0};
 
@@ -95,7 +95,7 @@ int __io_putchar(int ch)
 			Error_Handler();
 		}
 	}
-}*/
+}
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
@@ -141,6 +141,17 @@ void SetPIN(void)
 	HAL_UART_Receive(&huart1, responseP, 2, 2000);
 
 	printf("PIN Response: %c%c \r\n", (char)responseP[0], (char)responseP[1]);
+}
+
+void AnalyzeData()
+{
+	if(dataUART1[0] == 'A'){
+		printf("ACCELEROMETER\r\n");
+	}
+
+	if(dataUART1[0] == 'B'){
+		printf("BUTTONS");
+	}
 }
 
 /* USER CODE END PFP */
@@ -198,8 +209,12 @@ int main(void)
   {
 	printf("LOOP\r\n");
 	//HAL_Delay(2000);
+
 	HAL_UART_Receive(&huart1, dataUART1, 4, 1000);
 	printf("Data: %c%c%c%c \r\n", (char)dataUART1[0], (char)dataUART1[1], (char)dataUART1[2], (char)dataUART1[3]);
+
+	AnalyzeData();
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

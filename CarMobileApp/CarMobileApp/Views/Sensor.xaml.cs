@@ -25,12 +25,6 @@ namespace CarMobileApp.Views
         {
             base.OnAppearing();
 
-            //enable scannning bt
-            if (!dataSender.IsScanning())
-            {
-                await dataSender.StartScanning();
-            }
-
             var render = await Model3D.Show<Render3D>(new Urho.ApplicationOptions(assetsFolder: "Data"));
 
             //xdd
