@@ -50,7 +50,7 @@ UART_HandleTypeDef huart3;
 uint32_t PWM1 = 0;
 uint32_t PWM2 = 0;
 
-uint8_t dataUART1[4] = {99,99,99,99};
+uint8_t dataUART1[7] = {99,99,99,99,99,99,99};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -66,7 +66,7 @@ int __io_putchar(int ch)
 	return ch;
 }
 
-void SetPWM(uint8_t channelIndex, uint32_t value)
+/*void SetPWM(uint8_t channelIndex, uint32_t value)
 {
 	TIM_OC_InitTypeDef sConfigOC = {0};
 
@@ -95,9 +95,9 @@ void SetPWM(uint8_t channelIndex, uint32_t value)
 			Error_Handler();
 		}
 	}
-}
+}*/
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+/*void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	//HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
 
@@ -108,7 +108,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		HAL_UART_Receive_IT(&huart1, dataUART1, 2);
 	}
 
-}
+}*/
 
 void SetBaud(void)
 {
@@ -146,11 +146,11 @@ void SetPIN(void)
 void AnalyzeData()
 {
 	if(dataUART1[0] == 'A'){
-		printf("ACCELEROMETER\r\n");
+		//printf("ACCELEROMETER\r\n");
 	}
 
 	if(dataUART1[0] == 'B'){
-		printf("BUTTONS");
+		//printf("BUTTONS");
 	}
 }
 
@@ -210,8 +210,8 @@ int main(void)
 	printf("LOOP\r\n");
 	//HAL_Delay(2000);
 
-	HAL_UART_Receive(&huart1, dataUART1, 4, 1000);
-	printf("Data: %c%c%c%c \r\n", (char)dataUART1[0], (char)dataUART1[1], (char)dataUART1[2], (char)dataUART1[3]);
+	HAL_UART_Receive(&huart1, dataUART1, 7, 1000);
+	printf("Data: %c%c%c%c%c%c%c \r\n", (char)dataUART1[0], (char)dataUART1[1], (char)dataUART1[2], (char)dataUART1[3], (char)dataUART1[4], (char)dataUART1[5], (char)dataUART1[6]);
 
 	AnalyzeData();
 

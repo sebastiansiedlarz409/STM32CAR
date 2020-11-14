@@ -17,13 +17,43 @@ namespace CarMobileApp.Sender
         private DataSender()
         {
             bt = DependencyService.Get<IMyBluetoothAdapter>();
+
             bt.Prepare();
         }
 
-        public void SendData(SenderMode mode, double x, double y, double z)
+        public void SendData(SenderMode mode, int x, int y, int z)
         {
-            //if android
-            bt.Send();
+            byte[] data = new byte[7];
+
+            if(mode == SenderMode.ACCELEROMETER)
+            {
+                data[0] = (byte)'A';
+
+                data[1] = x < 0 ? (byte)'-' : (byte)'+';
+                data[2] = (byte)(x + 65);
+
+                data[3] = y < 0 ? (byte)'-' : (byte)'+';
+                data[4] = (byte)(y + 65);
+
+                data[5] = z < 0 ? (byte)'-' : (byte)'+';
+                data[6] = (byte)(z + 65);
+            }
+            else
+            {
+                data[0] = (byte)'B';
+
+                data[1] = x < 0 ? (byte)'-' : (byte)'+';
+                data[2] = (byte)(x + 65);
+
+                data[3] = y < 0 ? (byte)'-' : (byte)'+';
+                data[4] = (byte)(y + 65);
+
+                data[5] = z < 0 ? (byte)'-' : (byte)'+';
+                data[6] = (byte)(z + 65);
+            }
+
+            if (bt.IsConnected())
+                bt.Send(data, 7);
         }
     }
 }

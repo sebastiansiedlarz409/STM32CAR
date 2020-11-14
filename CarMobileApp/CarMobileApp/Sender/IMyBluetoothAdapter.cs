@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-
-namespace CarMobileApp.Sender
+﻿namespace CarMobileApp.Sender
 {
     public interface IMyBluetoothAdapter
     {
         public void Prepare();
-        public void Send();
+        public void Send(byte[] data, int size);
+
+        public bool IsConnected();
     }
 }

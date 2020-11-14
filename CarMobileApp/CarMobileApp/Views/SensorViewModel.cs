@@ -97,7 +97,7 @@ namespace CarMobileApp.Views
             if(SetRotation is { })
                 SetRotation((int)(X * 10), (int)(Y * 10), (int)(Z * 10));
 
-            _sender.SendData(SenderMode.ACCELEROMETER, X, Y, Z);
+            _sender.SendData(SenderMode.ACCELEROMETER, (int)(X * 10), (int)(Y * 10), (int)(Z * 10));
         }
 
         public async Task Switch()
