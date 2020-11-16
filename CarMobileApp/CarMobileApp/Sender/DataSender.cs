@@ -23,7 +23,7 @@ namespace CarMobileApp.Sender
 
         public void SendData(SenderMode mode, int x, int y, int z)
         {
-            byte[] data = new byte[7];
+            byte[] data = new byte[8];
 
             if(mode == SenderMode.ACCELEROMETER)
             {
@@ -52,8 +52,14 @@ namespace CarMobileApp.Sender
                 data[6] = (byte)(z < 0 ? z * -1 : z);
             }
 
+            int sum = data[0] + data[1] + data[2] + data[3] + data[4] + data[5] + data[6];
+
+            int checksum = sum % 256;
+
+            data[7] = (byte)checksum;
+
             if (bt.IsConnected())
-                bt.Send(data, 7);
+                bt.Send(data, 8);
         }
     }
 }

@@ -52,7 +52,7 @@ UART_HandleTypeDef huart3;
 uint32_t PWM1 = 0;
 uint32_t PWM2 = 0;
 
-uint8_t dataUART1[7] = {99,99,99,99,99,99,99};
+uint8_t dataUART1[8] = {99,99,99,99,99,99,99,99};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -115,25 +115,33 @@ void SetPIN(void)
 	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+PIN1991", strlen("AT+PIN1991"), 100);
 }
 
+uint8_t Checksum(void){
+
+	uint32_t sum = dataUART1[0] + dataUART1[1] + dataUART1[2] + dataUART1[3] + dataUART1[4] + dataUART1[5] + dataUART1[6];
+
+	uint8_t checksum = sum % 256;
+
+	return checksum;
+
+}
+
 void AnalyzeData(void)
 {
-	printf("Mode: %c, Values: %c%u %c%u %c%u\r\n", (char)dataUART1[0], (char)dataUART1[1], dataUART1[2], (char)dataUART1[3], dataUART1[4], (char)dataUART1[5], dataUART1[6]);
+	uint8_t checksum = Checksum();
 
-
-	/*if(dataUART1[0] == 'A'){
-		//printf("ACCELEROMETER\r\n");
+	if(checksum != dataUART1[7]){
+		printf("Mode: E, Values: BLAD %u %u\r\n", dataUART1[7], checksum);
 	}
-
-	if(dataUART1[0] == 'B'){
-		//printf("BUTTONS");
-	}*/
+	else{
+		printf("Mode: %c, Values: %c%u %c%u %c%u %u %u\r\n", (char)dataUART1[0], (char)dataUART1[1], dataUART1[2], (char)dataUART1[3], dataUART1[4], (char)dataUART1[5], dataUART1[6], dataUART1[7], checksum);
+	}
 }
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	AnalyzeData();
 
-	HAL_UART_Receive_IT(&huart1, dataUART1, 7);
+	HAL_UART_Receive_IT(&huart1, dataUART1, 8);
 }
 
 /* USER CODE END PFP */
@@ -184,7 +192,7 @@ int main(void)
 
   printf("Config sent\r\n");
 
-  HAL_UART_Receive_IT(&huart1, dataUART1, 7);
+  HAL_UART_Receive_IT(&huart1, dataUART1, 8);
 
   /* USER CODE END 2 */
 
@@ -192,7 +200,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	HAL_UART_Receive(&huart1, dataUART1, 7, 1000);
+	//HAL_UART_Receive(&huart1, dataUART1, 7, 1000);
 
 	//AnalyzeData();
 
