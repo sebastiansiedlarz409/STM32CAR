@@ -2,7 +2,7 @@
 {
     public interface IMyBluetoothAdapter
     {
-        public void Prepare();
+        public bool Prepare();
         public void Send(byte[] data, int size);
 
         public bool IsConnected();

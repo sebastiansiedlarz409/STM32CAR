@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace CarMobileApp.Sender
 {
@@ -60,6 +59,11 @@ namespace CarMobileApp.Sender
 
             if (bt.IsConnected())
                 bt.Send(data, 8);
+        }
+
+        public bool IsConnected()
+        {
+            return bt.IsConnected();
         }
     }
 }

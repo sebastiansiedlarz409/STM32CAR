@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Android.Bluetooth;
 using Android.Runtime;
 using CarMobileApp.Droid;
@@ -18,7 +19,24 @@ namespace CarMobileApp.Droid
 
 		private readonly UUID uuid = UUID.FromString("00001101-0000-1000-8000-00805F9B34FB");
 
-		public void Prepare()
+		public bool Prepare()
+        {
+            try
+            {
+				Connect();
+				return true;
+            }
+            catch (Java.IO.IOException)
+            {
+				return false;
+            }
+            catch (NullReferenceException)
+            {
+				return false;
+            }
+        }
+
+		private void Connect()
         {
 			adapter = BluetoothAdapter.DefaultAdapter;
 
@@ -48,7 +66,14 @@ namespace CarMobileApp.Droid
 
 		public bool IsConnected()
         {
-			return BthSocket.IsConnected;
+            try
+            {
+				return BthSocket.IsConnected;
+			}
+            catch (NullReferenceException)
+            {
+				return false;
+            }
         }
 	}
 }

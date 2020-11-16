@@ -14,6 +14,8 @@ namespace CarMobileApp.Views
         private double Yvalue;
         private double Zvalue;
 
+        private bool connection;
+
         //navigator to switch views
         private readonly INavigation navigation;
 
@@ -59,6 +61,8 @@ namespace CarMobileApp.Views
         {
             this.navigation = navigation;
             _sender = sender;
+
+            Connection = _sender.IsConnected();
         }
 
         //this fuction notify property
@@ -71,7 +75,7 @@ namespace CarMobileApp.Views
         {
             get
             {
-                return $"X: {String.Format("{0:0.00}", X)} Y: {String.Format("{0:0.00}", Y)} Z: {String.Format("{0:0.00}", Z)}";
+                return $"X: {String.Format("{0:0.00}", X)} Y: {String.Format("{0:0.00}", Y)} Z: {String.Format("{0:0.00}", Z)} {ConnectionInfo}";
             }
         }
 
@@ -105,8 +109,24 @@ namespace CarMobileApp.Views
             }
         }
 
+        public string ConnectionInfo
+        {
+            get => connection ? "Połączono" : "Brak połączenia";
+        }
+
+        public bool Connection
+        {
+            set
+            {
+                connection = value;
+                OnPropertyChanged(nameof(PrintValues));
+            }
+        }
+
         public void Left()
         {
+            Connection = _sender.IsConnected();
+
             Y -= 0.2;
 
             _sender.SendData(SenderMode.BUTTONS, (int)(X * 10), (int)(Y * 10), (int)(Z * 10));
@@ -114,6 +134,8 @@ namespace CarMobileApp.Views
 
         public void Right()
         {
+            Connection = _sender.IsConnected();
+
             Y += 0.2;
 
             _sender.SendData(SenderMode.BUTTONS, (int)(X * 10), (int)(Y * 10), (int)(Z * 10));
@@ -121,6 +143,8 @@ namespace CarMobileApp.Views
 
         public void Throttle()
         {
+            Connection = _sender.IsConnected();
+
             Z += 0.1;
 
             _sender.SendData(SenderMode.BUTTONS, (int)(X * 10), (int)(Y * 10), (int)(Z * 10));
@@ -128,6 +152,8 @@ namespace CarMobileApp.Views
 
         public void Stop()
         {
+            Connection = _sender.IsConnected();
+
             if (Z >= 0.1)
                 Z -= 0.1;
 

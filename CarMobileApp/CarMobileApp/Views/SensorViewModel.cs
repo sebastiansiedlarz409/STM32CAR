@@ -14,6 +14,8 @@ namespace CarMobileApp.Views
         private double Yvalue = 0;
         private double Zvalue = 0;
 
+        private bool connection;
+
         private int counter = 0;
 
         //navigator to switch views
@@ -56,7 +58,7 @@ namespace CarMobileApp.Views
         {
             get
             {
-                return $"X: {String.Format("{0:0.00}", X)} Y: {String.Format("{0:0.00}", Y)} Z: {String.Format("{0:0.00}", Z)}";
+                return $"X: {String.Format("{0:0.00}", X)} Y: {String.Format("{0:0.00}", Y)} Z: {String.Format("{0:0.00}", Z)} {ConnectionInfo}";
             }
         }
 
@@ -90,8 +92,24 @@ namespace CarMobileApp.Views
             }
         }
 
+        public string ConnectionInfo
+        {
+            get => connection ? "Połączono" : "Brak połączenia";
+        }
+
+        public bool Connection
+        {
+            set
+            {
+                connection = value;
+                OnPropertyChanged(nameof(PrintValues));
+            }
+        }
+
         public void SensorUpdateEvent(object sender, AccelerometerChangedEventArgs e)
         {
+            Connection = _sender.IsConnected();
+
             X = e.Reading.Acceleration.X;
             Y = e.Reading.Acceleration.Y;
             Z = e.Reading.Acceleration.Z;
