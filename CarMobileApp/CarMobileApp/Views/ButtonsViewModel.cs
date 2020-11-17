@@ -64,6 +64,8 @@ namespace CarMobileApp.Views
 
             if(!_sender.IsConnected())
                 Connection = _sender.Connect();
+
+            Connection = _sender.IsConnected();
         }
 
         //this fuction notify property
