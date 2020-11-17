@@ -138,10 +138,12 @@ void AnalyzeData(void)
 	uint8_t calculated_checksum = CalculateChecksum();
 
 	if(calculated_checksum != received_checksum){
-		printf("Mode: E, Values: BLAD %u %u\r\n", received_checksum, calculated_checksum);
+		printf("Mode: E, Values: ERROR %u %u\r\n", received_checksum, calculated_checksum);
 	}
 	else{
-		printf("Mode: %c, Values: %c%u %c%u %c%u %u %u\r\n", (char)dataUART1[0], (char)dataUART1[1], dataUART1[2], (char)dataUART1[3], dataUART1[4], (char)dataUART1[5], dataUART1[6], received_checksum, calculated_checksum);
+		printf("Mode: %c, Values: %c%u %c%u %c%u %u %u\r\n", (char)dataUART1[0],
+				(char)dataUART1[1], dataUART1[2], (char)dataUART1[3],
+				dataUART1[4], (char)dataUART1[5], dataUART1[6], received_checksum, calculated_checksum);
 	}
 }
 
@@ -149,6 +151,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	AnalyzeData();
 
+	HAL_NVIC_ClearPendingIRQ(USART1_IRQn);
 	HAL_UART_Receive_IT(&huart1, dataUART1, 8);
 }
 
@@ -208,9 +211,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	//HAL_UART_Receive(&huart1, dataUART1, 7, 1000);
-
-	//AnalyzeData();
+	HAL_Delay(1000);
+	HAL_UART_Receive_IT(&huart1, dataUART1, 8);
 
     /* USER CODE END WHILE */
 
