@@ -16,8 +16,11 @@ namespace CarMobileApp.Sender
         private DataSender()
         {
             bt = DependencyService.Get<IMyBluetoothAdapter>();
+        }
 
-            bt.Prepare();
+        public bool Connect()
+        {
+            return bt.Prepare();
         }
 
         public void SendData(SenderMode mode, int x, int y, int z)

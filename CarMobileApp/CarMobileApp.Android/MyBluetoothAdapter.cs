@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Android.Bluetooth;
 using Android.Runtime;
 using CarMobileApp.Droid;
 using CarMobileApp.Sender;
 using Java.Lang;
-using Java.Util;
 
 [assembly: Xamarin.Forms.Dependency(typeof(MyBluetoothAdapter))]
 namespace CarMobileApp.Droid
@@ -16,8 +16,6 @@ namespace CarMobileApp.Droid
 
 		private BluetoothAdapter adapter;
 		private BluetoothSocket BthSocket;
-
-		private readonly UUID uuid = UUID.FromString("00001101-0000-1000-8000-00805F9B34FB");
 
 		public bool Prepare()
         {
@@ -40,14 +38,16 @@ namespace CarMobileApp.Droid
         {
 			adapter = BluetoothAdapter.DefaultAdapter;
 
-			var devices = adapter.BondedDevices;
+			//all bonded devices
+			List<BluetoothDevice> devices = adapter.BondedDevices.ToList();
 
+			//find device by name
 			BluetoothDevice device = devices.FirstOrDefault(t => t.Name.Equals(name));
 
-			//some magic here :)
-			var JavaMethods = device.JavaCast<BluetoothDevice>().Class.GetMethods();
-			var crfsmethod = JavaMethods.FirstOrDefault(t => t.Name.Equals("createRfcommSocket"));
-			BthSocket = (BluetoothSocket)crfsmethod.Invoke(device, new Java.Lang.Object[] { Integer.ValueOf(1) });
+			//find createRfcommSocket using reflections and call it
+			var deviceMethods = device.JavaCast<BluetoothDevice>().Class.GetMethods();
+			var createRfcommSocketMethod = deviceMethods.FirstOrDefault(t => t.Name.Equals("createRfcommSocket"));
+			BthSocket = (BluetoothSocket)createRfcommSocketMethod.Invoke(device, new Java.Lang.Object[] { Integer.ValueOf(1) });
 
 			if (!BthSocket.IsConnected)
             {

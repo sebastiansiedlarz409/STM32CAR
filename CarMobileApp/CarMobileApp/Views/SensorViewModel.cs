@@ -46,6 +46,8 @@ namespace CarMobileApp.Views
         {
             this.navigation = navigation;
             _sender = sender;
+
+            Connection = _sender.Connect();
         }
 
         //this fuction notify property
