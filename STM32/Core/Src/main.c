@@ -115,25 +115,33 @@ void SetPIN(void)
 	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+PIN1991", strlen("AT+PIN1991"), 100);
 }
 
-uint8_t Checksum(void){
+uint8_t CalculateChecksum(void){
 
-	uint32_t sum = dataUART1[0] + dataUART1[1] + dataUART1[2] + dataUART1[3] + dataUART1[4] + dataUART1[5] + dataUART1[6];
+	uint8_t a = 0;
+	uint8_t b = 0;
 
-	uint8_t checksum = sum % 256;
+	for(uint8_t i = 0; i < 8 ; i++){
+		a = (uint8_t)((a + dataUART1[i]) % 255);
+		a = (uint8_t)((a + b) % 255);
+	}
 
-	return checksum;
+	return ((b << 8 | a ) % 256);
 
 }
 
 void AnalyzeData(void)
 {
-	uint8_t checksum = Checksum();
+	uint8_t received_checksum = dataUART1[7];
 
-	if(checksum != dataUART1[7]){
-		printf("Mode: E, Values: BLAD %u %u\r\n", dataUART1[7], checksum);
+	dataUART1[7] = 0;
+
+	uint8_t calculated_checksum = CalculateChecksum();
+
+	if(calculated_checksum != received_checksum){
+		printf("Mode: E, Values: BLAD %u %u\r\n", received_checksum, calculated_checksum);
 	}
 	else{
-		printf("Mode: %c, Values: %c%u %c%u %c%u %u %u\r\n", (char)dataUART1[0], (char)dataUART1[1], dataUART1[2], (char)dataUART1[3], dataUART1[4], (char)dataUART1[5], dataUART1[6], dataUART1[7], checksum);
+		printf("Mode: %c, Values: %c%u %c%u %c%u %u %u\r\n", (char)dataUART1[0], (char)dataUART1[1], dataUART1[2], (char)dataUART1[3], dataUART1[4], (char)dataUART1[5], dataUART1[6], received_checksum, calculated_checksum);
 	}
 }
 
