@@ -52,7 +52,7 @@ UART_HandleTypeDef huart3;
 uint32_t PWM1 = 0;
 uint32_t PWM2 = 0;
 
-uint8_t dataUART1[8] = {99,99,99,99,99,99,99,99};
+uint8_t dataUART1[9] = {99,99,99,99,99,99,99,99,99};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -115,27 +115,28 @@ void SetPIN(void)
 	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+PIN1991", strlen("AT+PIN1991"), 100);
 }
 
-uint8_t CalculateChecksum(void){
+uint16_t CalculateChecksum(void){
 
-	uint8_t a = 0;
-	uint8_t b = 0;
+	uint16_t a = 0;
+	uint16_t b = 0;
 
-	for(uint8_t i = 0; i < 8 ; i++){
+	for(uint8_t i = 0; i < 9 ; i++){
 		a = (uint8_t)((a + dataUART1[i]) % 255);
-		a = (uint8_t)((a + b) % 255);
+		b = (uint8_t)((a + b) % 255);
 	}
 
-	return ((b << 8 | a ) % 256);
+	return (uint16_t)((b << 8) | a);
 
 }
 
 void AnalyzeData(void)
 {
-	uint8_t received_checksum = dataUART1[7];
+	uint16_t received_checksum = (dataUART1[7] << 8) | dataUART1[8];
 
 	dataUART1[7] = 0;
+	dataUART1[8] = 0;
 
-	uint8_t calculated_checksum = CalculateChecksum();
+	uint16_t calculated_checksum = CalculateChecksum();
 
 	if(calculated_checksum != received_checksum){
 		printf("Mode: E, Values: ERROR %u %u\r\n", received_checksum, calculated_checksum);
@@ -152,7 +153,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	AnalyzeData();
 
 	HAL_NVIC_ClearPendingIRQ(USART1_IRQn);
-	HAL_UART_Receive_IT(&huart1, dataUART1, 8);
+	HAL_UART_Receive_IT(&huart1, dataUART1, 9);
 }
 
 /* USER CODE END PFP */
@@ -203,7 +204,7 @@ int main(void)
 
   printf("Config sent\r\n");
 
-  HAL_UART_Receive_IT(&huart1, dataUART1, 8);
+  HAL_UART_Receive_IT(&huart1, dataUART1, 9);
 
   /* USER CODE END 2 */
 
@@ -212,7 +213,7 @@ int main(void)
   while (1)
   {
 	HAL_Delay(1000);
-	HAL_UART_Receive_IT(&huart1, dataUART1, 8);
+	HAL_UART_Receive_IT(&huart1, dataUART1, 9);
 
     /* USER CODE END WHILE */
 

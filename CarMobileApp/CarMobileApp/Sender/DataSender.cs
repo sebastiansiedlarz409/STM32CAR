@@ -25,7 +25,7 @@ namespace CarMobileApp.Sender
 
         public void SendData(SenderMode mode, int x, int y, int z)
         {
-            byte[] data = new byte[8];
+            byte[] data = new byte[9];
 
             if(mode == SenderMode.ACCELEROMETER)
             {
@@ -55,11 +55,15 @@ namespace CarMobileApp.Sender
             }
 
             data[7] = 0;
+            data[8] = 0;
 
-            data[7] = (byte)FletcherCheksum.CalculateChecksum(data);
+            byte[] result = FletcherCheksum.CalculateChecksum(data);
+
+            data[7] = result[0];
+            data[8] = result[1];
 
             if (bt.IsConnected())
-                bt.Send(data, 8);
+                bt.Send(data, 9);
         }
 
         public bool IsConnected()

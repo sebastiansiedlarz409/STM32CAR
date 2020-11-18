@@ -2,7 +2,7 @@
 {
     public class FletcherCheksum
     {
-        public static int CalculateChecksum(byte[] data)
+        public static byte[] CalculateChecksum(byte[] data)
         {
             byte a = 0;
             byte b = 0;
@@ -13,7 +13,7 @@
                 b = (byte)((a + b) % 255);
             }
 
-            return ((b << 8 ) | a) % 256;
+            return new byte[] { b, a };
         }
     }
 }
