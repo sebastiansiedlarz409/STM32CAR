@@ -10,13 +10,14 @@ namespace CarMobileApp.Views
 {
     public class SensorViewModel : INotifyPropertyChanged
     {
-        private double Xvalue = 0;
-        private double Yvalue = 0;
-        private double Zvalue = 0;
+        private float Xvalue = 0;
+        private float Yvalue = 0;
+        private float Zvalue = 0;
 
         private bool connection;
 
-        private int counter = 0;
+        private int counterSend = 0;
+        private int counterRotation = 0;
 
         //navigator to switch views
         private readonly INavigation navigation;
@@ -28,7 +29,7 @@ namespace CarMobileApp.Views
         public event PropertyChangedEventHandler PropertyChanged;
 
         //render object setter for x,y,z
-        public Action<int, int, int> SetRotation;
+        public Action<float, float, float> SetRotation;
 
         public ICommand SwitchViewCommand { get; }
 
@@ -37,7 +38,7 @@ namespace CarMobileApp.Views
             SwitchViewCommand = new Command(async () => await Switch());
 
             if(!Accelerometer.IsMonitoring)
-                Accelerometer.Start(SensorSpeed.Default);
+                Accelerometer.Start(SensorSpeed.Game);
 
             Accelerometer.ReadingChanged += SensorUpdateEvent;
         }
@@ -67,7 +68,7 @@ namespace CarMobileApp.Views
             }
         }
 
-        public double X
+        public float X
         {
             get => Xvalue;
             set
@@ -77,7 +78,7 @@ namespace CarMobileApp.Views
             }
         }
 
-        public double Y
+        public float Y
         {
             get => Yvalue;
             set
@@ -87,7 +88,7 @@ namespace CarMobileApp.Views
             }
         }
 
-        public double Z
+        public float Z
         {
             get => Zvalue;
             set
@@ -119,18 +120,26 @@ namespace CarMobileApp.Views
             Y = e.Reading.Acceleration.Y;
             Z = e.Reading.Acceleration.Z;
 
-            if(SetRotation is { })
-                SetRotation((int)(X * 10), (int)(Y * 10), (int)(Z * 10));
-
-
-            if(counter == 50)
+            if (counterRotation == 2)
             {
-                _sender.SendData(SenderMode.ACCELEROMETER, (int)(X * 10), (int)(Y * 10), (int)(Z * 10));
-                counter = 0;
+                if (SetRotation is { })
+                    SetRotation(X * 10, Y * 10, Z * 10);
+
+                counterRotation = 0;
             }
             else
             {
-                counter++;
+                counterRotation++;
+            }
+
+            if (counterSend == 50)
+            {
+                _sender.SendData(SenderMode.ACCELEROMETER, (int)(X * 10), (int)(Y * 10), (int)(Z * 10));
+                counterSend = 0;
+            }
+            else
+            {
+                counterSend++;
             }
             
         }

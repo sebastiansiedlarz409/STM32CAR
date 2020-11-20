@@ -7,9 +7,9 @@ namespace CarMobileApp
     {
         private Node _node;
 
-        private int X = 0;
-        private int Y = 0;
-        private int Z = 0;
+        private float X = 0;
+        private float Y = 0;
+        private float Z = 0;
 
         public Render3D(ApplicationOptions opts) : base(opts)
         {
@@ -58,7 +58,7 @@ namespace CarMobileApp
             Renderer.GetViewport(0).SetClearColor(new Color() { R = 0.247f, G = 0.247f, B = 0.247f });
         }
 
-        public void SetRotation(int X, int Y, int Z)
+        public void SetRotation(float X, float Y, float Z)
         {
             this.X = X;
             this.Y = Y * -4;
