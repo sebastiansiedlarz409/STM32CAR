@@ -60,17 +60,13 @@ namespace CarMobileApp
 
         public void SetRotation(float X, float Y, float Z)
         {
-
-            if (Math.Abs((X + Y + Z) - (this.X + this.Y + this.Z)) < 0.05)
-                return;
-
             this.X = X;
             this.Y = Y;
             this.Z = Z;
 
             try
             {
-                _node.Rotation = new Quaternion(this.Y * -4, -90, this.Z * 4); //up/down, left/right, angel
+                _node.Rotation = new Quaternion(this.Y * -2.2f, -90 + (this.Y * -5), this.Z * 4); //up/down, left/right, angel
             }
             catch (InvalidOperationException)
             {
