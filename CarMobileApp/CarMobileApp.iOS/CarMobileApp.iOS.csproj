@@ -141,12 +141,6 @@
     <BundleResource Include="Resources\Data\Materials\Material.xml" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\Data\Models\Car.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\Data\Objects\Scene.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\Data\Car.xml" />
   </ItemGroup>
 </Project>

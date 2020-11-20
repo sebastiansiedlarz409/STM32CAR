@@ -31,13 +31,13 @@ namespace CarMobileApp
 
             //model
             _node = scene.CreateChild();
-            _node.Position = new Vector3(0, 4, 5);
-            _node.Rotation = new Quaternion(180, -90, 0);  //up/down, left/right, angel
-            _node.Scale = new Vector3(1, 1, 3);
+            _node.Position = new Vector3(0, 0, 5);
+            _node.Rotation = new Quaternion(0, -90, 0);  //up/down, left/right, angel
+            _node.Scale = new Vector3(1.5f, 2.5f, 4f);
 
             //model
             StaticModel modelObject = _node.CreateComponent<StaticModel>();
-            modelObject.Model = ResourceCache.GetModel("Models/CarModel.mdl");
+            modelObject.Model = ResourceCache.GetModel("Models/Car.mdl");
 
             //light
             Node light = scene.CreateChild(name: "light");
@@ -66,7 +66,7 @@ namespace CarMobileApp
 
             try
             {
-                _node.Rotation = new Quaternion(180 + this.Y, -90, this.Z); //up/down, left/right, angel
+                _node.Rotation = new Quaternion(this.Y, -90, this.Z); //up/down, left/right, angel
             }
             catch (InvalidOperationException)
             {
