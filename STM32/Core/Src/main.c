@@ -52,7 +52,7 @@ UART_HandleTypeDef huart3;
 uint32_t PWM1 = 0;
 uint32_t PWM2 = 0;
 
-uint8_t dataUART1[9] = {99,99,99,99,99,99,99,99,99};
+uint8_t dataUART1[32];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -100,19 +100,71 @@ void SetPWM(uint8_t channelIndex, uint32_t value)
 	}
 }
 
-void SetBaud(void)
-{
-	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+BAUD4", strlen("AT+BAUD4"), 100);
+void PrintResponse(uint8_t size){
+	for(uint8_t i = 0; i < size ;i++){
+		printf("%c", dataUART1[i]);
+	}
+	printf("\r\n");
 }
 
-void SetName(void)
+void SendOK(void)
+{
+	HAL_UART_Transmit(&huart1, (uint8_t*)"AT", strlen("AT"), 100);
+
+	HAL_UART_Receive(&huart1, dataUART1, 2, 1000);
+
+	printf("OK response: ");
+	PrintResponse(2);
+
+	HAL_Delay(100);
+}
+
+void SendBaud(void)
+{
+	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+BAUD0", strlen("AT+BAUD0"), 100);
+
+	HAL_UART_Receive(&huart1, dataUART1, 8, 1000);
+
+	printf("Baud response: ");
+	PrintResponse(8);
+
+	HAL_Delay(100);
+}
+
+void SendName(void)
 {
 	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+NAMEstm32car", strlen("AT+NAMEstm32car"), 100);
+
+	HAL_UART_Receive(&huart1, dataUART1, 16, 1000);
+
+	printf("Name response: ");
+	PrintResponse(16);
+
+	HAL_Delay(100);
 }
 
-void SetPIN(void)
+void SendPIN(void)
 {
-	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+PIN1991", strlen("AT+PIN1991"), 100);
+	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+PASS001991", strlen("AT+PASS001991"), 100);
+
+	HAL_UART_Receive(&huart1, dataUART1, 14, 1000);
+
+	printf("Pin response: ");
+	PrintResponse(13);
+
+	HAL_Delay(100);
+}
+
+void SendBond(void)
+{
+	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+TYPE1", strlen("AT+TYPE1"), 100);
+
+	HAL_UART_Receive(&huart1, dataUART1, 8, 1000);
+
+	printf("Bond response: ");
+	PrintResponse(8);
+
+	HAL_Delay(100);
 }
 
 uint16_t CalculateChecksum(void){
@@ -198,9 +250,11 @@ int main(void)
 
   printf("STARTED\r\n");
 
-  SetBaud();
-  SetName();
-  SetPIN();
+  SendOK();
+  SendBaud();
+  SendName();
+  SendBond();
+  SendPIN();
 
   printf("Config sent\r\n");
 
