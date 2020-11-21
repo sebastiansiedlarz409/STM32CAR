@@ -167,6 +167,18 @@ void SendBond(void)
 	HAL_Delay(100);
 }
 
+void SendRole(void)
+{
+	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+ROLE0", strlen("AT+ROLE0"), 100);
+
+	HAL_UART_Receive(&huart1, dataUART1, 8, 1000);
+
+	printf("Role response: ");
+	PrintResponse(8);
+
+	HAL_Delay(100);
+}
+
 uint16_t CalculateChecksum(void){
 
 	uint16_t a = 0;
@@ -255,6 +267,7 @@ int main(void)
   SendName();
   SendBond();
   SendPIN();
+  SendRole();
 
   printf("Config sent\r\n");
 
