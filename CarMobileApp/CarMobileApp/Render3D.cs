@@ -7,14 +7,20 @@ namespace CarMobileApp
     {
         private Node _node;
 
+        private readonly string _modelPath = "Models/Car.mdl";
+
+        //previous rotation
         private float X = 0;
         private float Y = 0;
         private float Z = 0;
 
-        public Render3D(ApplicationOptions opts) : base(opts)
-        {
+        //default rotation
+        private readonly float defaultX = 0;         //up or down
+        private readonly float defaultY = -90;       //left right
+        private readonly float defaultZ = 0;         //angel
 
-        }
+        public Render3D(ApplicationOptions opts) : base(opts)
+        { }
 
         protected override void Start()
         {
@@ -25,29 +31,28 @@ namespace CarMobileApp
 
         private void Render()
         {
-            //scene
-            var scene = new Scene();
+            Scene scene = new Scene();
             scene.CreateComponent<Octree>();
+            Node lightNode = scene.CreateChild(name: "Light");
+            Node cameraNode = scene.CreateChild(name: "Camera");
 
             //model
             _node = scene.CreateChild();
             _node.Position = new Vector3(0, 0, 5);
-            _node.Rotation = new Quaternion(0, -90, 0);  //up/down, left/right, angel
+            _node.Rotation = new Quaternion(defaultX, defaultY, defaultZ);
             _node.Scale = new Vector3(1.5f, 2.5f, 4f);
 
             //model
             StaticModel modelObject = _node.CreateComponent<StaticModel>();
-            modelObject.Model = ResourceCache.GetModel("Models/Car.mdl");
+            modelObject.Model = ResourceCache.GetModel(_modelPath);
 
             //light
-            Node light = scene.CreateChild(name: "light");
-            light.SetScale(30);
-            light.SetDirection(new Vector3(0, 0, 1));
-            light.Position = new Vector3(0, 4, -12);
-            light.CreateComponent<Light>().LightType = LightType.Directional;
+            lightNode.SetScale(30);
+            lightNode.SetDirection(new Vector3(0, 0, 1));
+            lightNode.Position = new Vector3(0, 4, -12);
+            lightNode.CreateComponent<Light>().LightType = LightType.Directional;
 
             //camera
-            Node cameraNode = scene.CreateChild(name: "camera");
             cameraNode.Position = new Vector3(0, 0, -16);
             Camera camera = cameraNode.CreateComponent<Camera>();
 
@@ -60,13 +65,20 @@ namespace CarMobileApp
 
         public void SetRotation(float X, float Y, float Z)
         {
-            this.X = X;
-            this.Y = Y;
-            this.Z = Z;
+            if (Math.Abs(this.X - X) > 0.3)
+                this.X = X;
+
+            if (Math.Abs(this.Y - Y) > 0.3)
+                this.Y = Y;
+
+            if (Math.Abs(this.Z - Z) > 0.3)
+                this.Z = Z;
 
             try
             {
-                _node.Rotation = new Quaternion(this.Y * -2.2f, -90 + (this.Y * -5), this.Z * 4); //up/down, left/right, angel
+                _node.Rotation = new Quaternion(this.Y * -2.2f + defaultX,
+                                                this.Y * 5 + defaultY,
+                                                this.Z * 4 + defaultZ);
             }
             catch (InvalidOperationException)
             {
