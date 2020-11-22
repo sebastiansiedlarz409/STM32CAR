@@ -49,8 +49,8 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
-uint32_t PWM1 = 0;
-uint32_t PWM2 = 0;
+uint32_t PWM1 = 0;				//current pwm on channel 1
+uint32_t PWM2 = 0;				//current pwm on channel 2
 
 uint8_t dataUART1[32];
 /* USER CODE END PV */
@@ -281,6 +281,19 @@ void AnalyzeData(void)
 	}
 }
 
+void ResetData(){
+	dataUART1[0] = 0;
+	dataUART1[1] = 0;
+	dataUART1[2] = 0;
+	dataUART1[3] = 0;
+	dataUART1[4] = 0;
+	dataUART1[5] = 0;
+	dataUART1[6] = 0;
+	dataUART1[7] = 0;
+	dataUART1[8] = 0;
+	dataUART1[9] = 0;
+}
+
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	AnalyzeData();
@@ -356,6 +369,8 @@ int main(void)
   {
 	HAL_Delay(600);
 	HAL_UART_Receive_IT(&huart1, dataUART1, 9);
+	HAL_Delay(2000);
+	ResetData();
 
     /* USER CODE END WHILE */
 
