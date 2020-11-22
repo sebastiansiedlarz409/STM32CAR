@@ -52,7 +52,7 @@ UART_HandleTypeDef huart3;
 uint32_t PWM1 = 0;				//current pwm on channel 1
 uint32_t PWM2 = 0;				//current pwm on channel 2
 
-uint8_t dataUART1[32];
+uint8_t dataUART1[32];			//buffor for uart data
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -63,12 +63,18 @@ static void MX_USART1_UART_Init(void);
 static void MX_TIM4_Init(void);
 /* USER CODE BEGIN PFP */
 
+/*
+ * printf override
+ * */
 int __io_putchar(int ch)
 {
 	HAL_UART_Transmit(&huart3, (uint8_t*)&ch, 1, 1000);
 	return ch;
 }
 
+/*
+ * Set pwm on specified channel
+ * */
 void SetPWM(uint8_t channelIndex, uint32_t value)
 {
 	TIM_OC_InitTypeDef sConfigOC = {0};
@@ -97,6 +103,9 @@ void SetPWM(uint8_t channelIndex, uint32_t value)
 	}
 }
 
+/*
+ * Help to print response from HM10 with different data size
+ * */
 void PrintResponse(uint8_t size){
 	for(uint8_t i = 0; i < size ;i++){
 		printf("%c", dataUART1[i]);
@@ -104,6 +113,9 @@ void PrintResponse(uint8_t size){
 	printf("\r\n");
 }
 
+/*
+ * Just send welcome message to HM10
+ * */
 void SendOK(void)
 {
 	HAL_UART_Transmit(&huart1, (uint8_t*)"AT", strlen("AT"), 100);
@@ -116,6 +128,9 @@ void SendOK(void)
 	HAL_Delay(100);
 }
 
+/*
+ * Send bound rate to HM10
+ * */
 void SendBaud(void)
 {
 	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+BAUD0", strlen("AT+BAUD0"), 100);
@@ -128,6 +143,9 @@ void SendBaud(void)
 	HAL_Delay(100);
 }
 
+/*
+ * Send BT name to HM10
+ * */
 void SendName(void)
 {
 	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+NAMEstm32car", strlen("AT+NAMEstm32car"), 100);
@@ -140,6 +158,9 @@ void SendName(void)
 	HAL_Delay(100);
 }
 
+/*
+ * Send PIN code to HM10
+ * */
 void SendPIN(void)
 {
 	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+PASS123456", strlen("AT+PASS123456"), 100);
@@ -152,6 +173,9 @@ void SendPIN(void)
 	HAL_Delay(100);
 }
 
+/*
+ * Make PIN required (1) or not (0)
+ * */
 void SendBond(void)
 {
 	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+TYPE1", strlen("AT+TYPE1"), 100);
@@ -164,6 +188,9 @@ void SendBond(void)
 	HAL_Delay(100);
 }
 
+/*
+ * Set role master (0) or slave (1)
+ * */
 void SendRole(void)
 {
 	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+ROLE0", strlen("AT+ROLE0"), 100);
@@ -176,6 +203,9 @@ void SendRole(void)
 	HAL_Delay(100);
 }
 
+/*
+ * Send power value to HM10
+ * */
 void SendPower(void)
 {
 	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+POWE2", strlen("AT+POWE2"), 100);
@@ -188,6 +218,9 @@ void SendPower(void)
 	HAL_Delay(100);
 }
 
+/*
+ * Send mode to HM10
+ * */
 void SendMode(void)
 {
 	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+MODE2", strlen("AT+MODE2"), 100);
@@ -200,6 +233,9 @@ void SendMode(void)
 	HAL_Delay(100);
 }
 
+/*
+ * Send IMME type to HM10
+ * */
 void SendImme(void)
 {
 	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+IMME0", strlen("AT+IMME0"), 100);
@@ -212,6 +248,9 @@ void SendImme(void)
 	HAL_Delay(100);
 }
 
+/*
+ * Clear module config
+ * */
 void SendRenew(void)
 {
 	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+RENEW", strlen("AT+RENEW"), 100);
@@ -224,6 +263,9 @@ void SendRenew(void)
 	HAL_Delay(100);
 }
 
+/*
+ * Clear last connected device value in module
+ * */
 void SendClear(void)
 {
 	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+CLEAR", strlen("AT+CLEAR"), 100);
@@ -236,6 +278,9 @@ void SendClear(void)
 	HAL_Delay(100);
 }
 
+/*
+ * Return firmware version
+ * */
 void SendVers(void)
 {
 	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+VERS?", strlen("AT+VERS?"), 100);
@@ -248,6 +293,9 @@ void SendVers(void)
 	HAL_Delay(100);
 }
 
+/*
+ * Calculate flecher checksum
+ * */
 uint16_t CalculateChecksum(void){
 
 	uint16_t a = 0;
@@ -262,6 +310,9 @@ uint16_t CalculateChecksum(void){
 
 }
 
+/*
+ * Decide what to do with received data
+ * */
 void AnalyzeData(void)
 {
 	uint16_t received_checksum = (dataUART1[7] << 8) | dataUART1[8];
@@ -281,6 +332,9 @@ void AnalyzeData(void)
 	}
 }
 
+/*
+ * Set data to 0 when transmission drop
+ * */
 void ResetData(){
 	dataUART1[0] = 0;
 	dataUART1[1] = 0;
@@ -294,6 +348,9 @@ void ResetData(){
 	dataUART1[9] = 0;
 }
 
+/*
+ * UART INT callback
+ * */
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	AnalyzeData();
@@ -344,6 +401,7 @@ int main(void)
 
   printf("STARTED\r\n");
 
+  //send config to HM10
   SendOK();
   SendVers();
   //SendRenew();
@@ -357,6 +415,7 @@ int main(void)
   SendMode();
   SendImme();
 
+  //enable uart interrupt
   HAL_UART_Receive_IT(&huart1, dataUART1, 9);
 
   printf("Config sent\r\n");
