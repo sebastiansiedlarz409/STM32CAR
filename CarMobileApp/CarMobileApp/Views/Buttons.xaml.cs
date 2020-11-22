@@ -9,7 +9,7 @@ namespace CarMobileApp.Views
     {
         private readonly DataSender dataSender;
 
-        public Buttons()
+        public Buttons(BluetoothBLE ble = null)
         {
             InitializeComponent();
 

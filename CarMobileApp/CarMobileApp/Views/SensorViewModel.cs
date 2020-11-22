@@ -47,10 +47,7 @@ namespace CarMobileApp.Views
             this.navigation = navigation;
             _sender = sender;
 
-            if (!_sender.IsConnected())
-                Connection = _sender.Connect();
-
-            Connection = _sender.IsConnected();
+            _sender.Connect();
         }
 
         //this fuction notify property

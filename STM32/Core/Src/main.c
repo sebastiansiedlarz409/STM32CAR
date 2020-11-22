@@ -145,7 +145,7 @@ void SendName(void)
 
 void SendPIN(void)
 {
-	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+PASS001991", strlen("AT+PASS001991"), 100);
+	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+PASS123456", strlen("AT+PASS123456"), 100);
 
 	HAL_UART_Receive(&huart1, dataUART1, 14, 1000);
 
@@ -175,6 +175,78 @@ void SendRole(void)
 
 	printf("Role response: ");
 	PrintResponse(8);
+
+	HAL_Delay(100);
+}
+
+void SendPower(void)
+{
+	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+POWE2", strlen("AT+POWE2"), 100);
+
+	HAL_UART_Receive(&huart1, dataUART1, 8, 1000);
+
+	printf("Power response: ");
+	PrintResponse(8);
+
+	HAL_Delay(100);
+}
+
+void SendMode(void)
+{
+	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+MODE2", strlen("AT+MODE2"), 100);
+
+	HAL_UART_Receive(&huart1, dataUART1, 8, 1000);
+
+	printf("Mode response: ");
+	PrintResponse(8);
+
+	HAL_Delay(100);
+}
+
+void SendImme(void)
+{
+	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+IMME0", strlen("AT+IMME0"), 100);
+
+	HAL_UART_Receive(&huart1, dataUART1, 8, 1000);
+
+	printf("Imme response: ");
+	PrintResponse(8);
+
+	HAL_Delay(100);
+}
+
+void SendRenew(void)
+{
+	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+RENEW", strlen("AT+RENEW"), 100);
+
+	HAL_UART_Receive(&huart1, dataUART1, 8, 1000);
+
+	printf("Renew response: ");
+	PrintResponse(8);
+
+	HAL_Delay(100);
+}
+
+void SendClear(void)
+{
+	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+CLEAR", strlen("AT+CLEAR"), 100);
+
+	HAL_UART_Receive(&huart1, dataUART1, 8, 1000);
+
+	printf("Clear response: ");
+	PrintResponse(8);
+
+	HAL_Delay(100);
+}
+
+void SendVers(void)
+{
+	HAL_UART_Transmit(&huart1, (uint8_t*)"AT+VERS?", strlen("AT+VERS?"), 100);
+
+	HAL_UART_Receive(&huart1, dataUART1, 12, 1000);
+
+	printf("Verr response: ");
+	PrintResponse(12);
 
 	HAL_Delay(100);
 }
@@ -263,15 +335,21 @@ int main(void)
   printf("STARTED\r\n");
 
   SendOK();
+  SendVers();
+  //SendRenew();
+  SendClear();
   SendBaud();
   SendName();
   SendBond();
   SendPIN();
   SendRole();
-
-  printf("Config sent\r\n");
+  SendPower();
+  SendMode();
+  SendImme();
 
   HAL_UART_Receive_IT(&huart1, dataUART1, 9);
+
+  printf("Config sent\r\n");
 
   /* USER CODE END 2 */
 

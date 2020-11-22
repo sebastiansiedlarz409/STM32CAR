@@ -1,8 +1,5 @@
-﻿using CarMobileApp;
-using CarMobileApp.Sender;
-using System.Diagnostics;
+﻿using CarMobileApp.Sender;
 using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.Xaml;
 
 namespace CarMobileApp.Views

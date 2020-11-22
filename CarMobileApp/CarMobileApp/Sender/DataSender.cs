@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace CarMobileApp.Sender
 {
@@ -6,7 +7,7 @@ namespace CarMobileApp.Sender
     {
         private static readonly DataSender _instance = new DataSender();
 
-        private readonly IMyBluetoothAdapter bt;
+        private readonly ACRBluetoothLE bt;
 
         public static DataSender GetSingleInstance()
         {
@@ -15,12 +16,12 @@ namespace CarMobileApp.Sender
 
         private DataSender()
         {
-            bt = DependencyService.Get<IMyBluetoothAdapter>();
+            bt = new ACRBluetoothLE();
         }
 
-        public bool Connect()
+        public void Connect()
         {
-            return bt.Prepare();
+            bt.Connect();
         }
 
         public void SendData(SenderMode mode, int x, int y, int z)
