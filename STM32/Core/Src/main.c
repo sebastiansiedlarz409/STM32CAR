@@ -80,26 +80,35 @@ void SetPWM(uint8_t channelIndex, uint32_t value)
 	TIM_OC_InitTypeDef sConfigOC = {0};
 
 	sConfigOC.OCMode = TIM_OCMODE_PWM1;
-	sConfigOC.Pulse = value;
 	sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
 	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
 
 	if(channelIndex == 1){
+		HAL_TIM_PWM_Stop(&htim4, TIM_CHANNEL_1);
+
 		PWM1 = value;
+		sConfigOC.Pulse = value;
 
 		if (HAL_TIM_PWM_ConfigChannel(&htim4, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
 		{
 			Error_Handler();
 		}
+
+		HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
 	}
 
 	if(channelIndex == 2){
+		HAL_TIM_PWM_Stop(&htim4, TIM_CHANNEL_2);
+
 		PWM2 = value;
+		sConfigOC.Pulse = value;
 
 		if (HAL_TIM_PWM_ConfigChannel(&htim4, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
 		{
 			Error_Handler();
 		}
+
+		HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_2);
 	}
 }
 
@@ -421,6 +430,9 @@ int main(void)
 
   printf("Config sent\r\n");
 
+  SetPWM(1, 1000);
+  HAL_Delay(1000);
+  SetPWM(1, 200);
   /* USER CODE END 2 */
 
   /* Infinite loop */
