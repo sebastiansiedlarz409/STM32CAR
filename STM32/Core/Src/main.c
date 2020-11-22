@@ -430,6 +430,7 @@ int main(void)
 	HAL_UART_Receive_IT(&huart1, dataUART1, 9);
 	HAL_Delay(2000);
 	ResetData();
+	HAL_UART_Receive_IT(&huart1, dataUART1, 9);
 
     /* USER CODE END WHILE */
 
