@@ -1,9 +1,7 @@
 ﻿using Plugin.BluetoothLE;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reactive.Linq;
-using System.Text;
 
 namespace CarMobileApp
 {
@@ -22,6 +20,8 @@ namespace CarMobileApp
                 {
                     if (device.Name.Equals("stm32car"))
                     {
+                        Debug.WriteLine("Car found");
+
                         car = device;
                         break;
                     }
@@ -34,6 +34,8 @@ namespace CarMobileApp
             {
                 if (characteristic.CanWrite())
                 {
+                    Debug.WriteLine("Write characteristic found");
+
                     writeCharacteristic = characteristic;
                 }
             });
@@ -48,7 +50,7 @@ namespace CarMobileApp
             {
                 writeCharacteristic.Write(data).Subscribe(result => 
                 {
-                    Debug.WriteLine("Send");
+                    Debug.WriteLine($"Send {size} bytes");
                 });
             }
         }

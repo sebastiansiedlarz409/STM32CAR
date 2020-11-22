@@ -119,7 +119,7 @@ namespace CarMobileApp.Views
             if (SetRotation is { })
                 SetRotation(X * 10, Y * 10, Z * 10);
 
-            if (counterSend == 50)
+            if (counterSend == 40)
             {
                 _sender.SendData(SenderMode.ACCELEROMETER, (int)(X * 10), (int)(Y * 10), (int)(Z * 10));
                 counterSend = 0;

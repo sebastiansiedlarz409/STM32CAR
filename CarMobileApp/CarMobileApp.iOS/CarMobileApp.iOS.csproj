@@ -124,9 +124,6 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Plugin.BLE">
-      <Version>2.1.1</Version>
-    </PackageReference>
     <PackageReference Include="Plugin.BluetoothLE">
       <Version>6.3.0.19</Version>
     </PackageReference>

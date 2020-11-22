@@ -76,10 +76,7 @@ void SetPWM(uint8_t channelIndex, uint32_t value)
 	sConfigOC.OCMode = TIM_OCMODE_PWM1;
 	sConfigOC.Pulse = value;
 	sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
-	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
 	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-	sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
-	sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
 
 	if(channelIndex == 1){
 		PWM1 = value;
@@ -357,7 +354,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	HAL_Delay(1000);
+	HAL_Delay(600);
 	HAL_UART_Receive_IT(&huart1, dataUART1, 9);
 
     /* USER CODE END WHILE */
