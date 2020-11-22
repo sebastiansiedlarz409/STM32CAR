@@ -319,6 +319,16 @@ uint16_t CalculateChecksum(void){
 
 }
 
+void CaseAccelerometer(void){
+	//throttle
+	SetPWM(1, 100*dataUART1[6]);
+}
+
+void CaseButtons(void){
+	//throttle
+	SetPWM(1, 100*dataUART1[6]);
+}
+
 /*
  * Decide what to do with received data
  * */
@@ -338,6 +348,14 @@ void AnalyzeData(void)
 		printf("Mode: %c, Values: %c%u %c%u %c%u %X %X\r\n", (char)dataUART1[0],
 				(char)dataUART1[1], dataUART1[2], (char)dataUART1[3],
 				dataUART1[4], (char)dataUART1[5], dataUART1[6], received_checksum, calculated_checksum);
+
+		if(dataUART1[0] == 'A'){
+			CaseAccelerometer();
+		}
+
+		if(dataUART1[0] == 'B'){
+			CaseButtons();
+		}
 	}
 }
 
@@ -430,9 +448,6 @@ int main(void)
 
   printf("Config sent\r\n");
 
-  SetPWM(1, 1000);
-  HAL_Delay(1000);
-  SetPWM(1, 200);
   /* USER CODE END 2 */
 
   /* Infinite loop */
