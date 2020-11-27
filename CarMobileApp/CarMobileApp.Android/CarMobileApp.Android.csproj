@@ -92,7 +92,9 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Data\Materials\Material.xml" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CarMobileApp\CarMobileApp.csproj">
       <Project>{6364E574-295C-4C89-B5E9-DD0015900037}</Project>
@@ -100,13 +102,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\Data\Materials\Material.xml" />
+    <AndroidResource Include="Resources\drawable\background.jpg" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Data\Objects\Scene.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\background.jpg" />
+    <AndroidAsset Include="Assets\Data\Textures\Karoseriatxt.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

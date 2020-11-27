@@ -141,12 +141,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Resources\background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <BundleResource Include="Resources\Data\Materials\Material.xml" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Data\Objects\Scene.xml" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\background.jpg" />
+    <BundleResource Include="Resources\Data\Textures\Karoseriatxt.png" />
   </ItemGroup>
 </Project>

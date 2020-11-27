@@ -8,6 +8,7 @@ namespace CarMobileApp
         private Node _node;
 
         private readonly string _modelPath = "Models/Car.mdl";
+        private readonly string _scenePath = "Objects/Scene.xml";
 
         //previous rotation
         private float X = 0;
@@ -33,13 +34,16 @@ namespace CarMobileApp
         {
             Scene scene = new Scene();
             scene.CreateComponent<Octree>();
+
+            _node = scene.InstantiateXml(
+            source: ResourceCache.GetFile(_scenePath),
+            position: new Vector3(0, 0, 5),
+            rotation: new Quaternion(defaultX, defaultY, defaultZ));
+
             Node lightNode = scene.CreateChild(name: "Light");
             Node cameraNode = scene.CreateChild(name: "Camera");
 
             //model
-            _node = scene.CreateChild();
-            _node.Position = new Vector3(0, 0, 5);
-            _node.Rotation = new Quaternion(defaultX, defaultY, defaultZ);
             _node.Scale = new Vector3(1.5f, 2.5f, 4f);
 
             //model
@@ -61,6 +65,18 @@ namespace CarMobileApp
 
             //background color
             Renderer.GetViewport(0).SetClearColor(new Color() { R = 0.247f, G = 0.247f, B = 0.247f });
+        }
+
+        protected override void Stop()
+        {
+            base.Stop();
+
+            _node.Dispose();
+        }
+
+        public void StopMe()
+        {
+            Stop();
         }
 
         public void SetRotation(float X, float Y, float Z)
