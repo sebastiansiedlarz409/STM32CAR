@@ -92,9 +92,7 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\drawable\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\CarMobileApp\CarMobileApp.csproj">
       <Project>{6364E574-295C-4C89-B5E9-DD0015900037}</Project>
@@ -107,10 +105,13 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\Data\Objects\Scene.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\background.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionCarMobileAppAndroidHideInfoBar="True" XamarinHotReloadGenericExceptionInfoBarCarMobileAppAndroidHideInfoBar="True" />
+      <UserProperties XamarinHotReloadGenericExceptionInfoBarCarMobileAppAndroidHideInfoBar="True" XamarinHotReloadDebuggerTimeoutExceptionCarMobileAppAndroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

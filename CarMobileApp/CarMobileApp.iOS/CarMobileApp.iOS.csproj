@@ -146,4 +146,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\Data\Objects\Scene.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\background.jpg" />
+  </ItemGroup>
 </Project>

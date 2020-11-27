@@ -8,7 +8,6 @@ namespace CarMobileApp.Views
     public partial class Buttons : ContentPage
     {
         private readonly DataSender dataSender;
-
         public Buttons()
         {
             InitializeComponent();

@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CarMobileApp.Views.Buttons"
+             BackgroundImageSource="background.jpg"
              NavigationPage.HasNavigationBar="false">
 
     <!--Style for switch view button and label-->
@@ -35,8 +36,7 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical"
-                     BackgroundColor="#7a7a7a">
+        <StackLayout Orientation="Vertical">
 
             <Label Text="{Binding PrintValues}"
                    Style="{StaticResource labelStyle}"/>

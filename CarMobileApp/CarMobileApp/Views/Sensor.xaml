@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:localVM="clr-namespace:CarMobileApp.Views" xmlns:urho="clr-namespace:Urho.Forms;assembly=UrhoSharp.Forms"
              x:Class="CarMobileApp.Views.Sensor"  
+             BackgroundImageSource="background.jpg"
              NavigationPage.HasNavigationBar="false">
 
     <!--Style for switch view button and label-->
@@ -34,8 +35,7 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical"
-                     BackgroundColor="#7a7a7a">
+        <StackLayout Orientation="Vertical">
 
             <Label Text="{Binding PrintValues}"
                    Style="{StaticResource labelStyle}"/>
