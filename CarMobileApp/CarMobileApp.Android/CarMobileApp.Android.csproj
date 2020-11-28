@@ -102,18 +102,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\background.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidAsset Include="Assets\Data\Objects\Scene.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Data\Textures\Karoseriatxt.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\background.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadGenericExceptionInfoBarCarMobileAppAndroidHideInfoBar="True" XamarinHotReloadDebuggerTimeoutExceptionCarMobileAppAndroidHideInfoBar="True" />
+      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionCarMobileAppAndroidHideInfoBar="True" XamarinHotReloadGenericExceptionInfoBarCarMobileAppAndroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

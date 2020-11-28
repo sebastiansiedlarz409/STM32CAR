@@ -64,7 +64,7 @@ namespace CarMobileApp
             Renderer.SetViewport(0, new Viewport(scene, camera, null));
 
             //background color
-            Renderer.GetViewport(0).SetClearColor(new Color() { R = 0.247f, G = 0.247f, B = 0.247f });
+            Renderer.GetViewport(0).SetClearColor(new Color() { R = 0.247f, G = 0.247f, B = 0.247f});
         }
 
         protected override void Stop()

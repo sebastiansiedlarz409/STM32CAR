@@ -9,25 +9,20 @@
     <!--Style for switch view button and label-->
     <ContentPage.Resources>
         <ResourceDictionary>
-            
+
             <Style x:Key="buttonStyle" TargetType="Button">
-                <Setter Property="BorderColor" Value="DodgerBlue"/>
-                <Setter Property="BorderRadius" Value="10"/>
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="Padding" Value="3, 3, 3, 3"/>
                 <Setter Property="TextColor" Value="#000000"/>
-                <Setter Property="BackgroundColor" Value="DodgerBlue"/>
-                <Setter Property="FontSize" Value="13"/>
-                <Setter Property="Margin" Value="5" />
             </Style>
 
-            <Style x:Key="labelStyle" TargetType="Label">
-                <Setter Property="TextColor" Value="#000000"/>
-                <Setter Property="Margin" Value="10, 5, 0, 0" />
+            <Style x:Key="gridStyle" TargetType="Grid">
+                <Setter Property="Margin" Value="5, 5, 5, 5" />
             </Style>
 
             <Style x:Key="surfaceStyle" TargetType="Frame">
                 <Setter Property="CornerRadius" Value="10"/>
                 <Setter Property="BackgroundColor" Value="#3f3f3f"/>
-                <Setter Property="Margin" Value="5, 5, 5, 5" />
                 <Setter Property="Padding" Value="4, 4, 4, 4" />
             </Style>
 
@@ -37,20 +32,8 @@
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
 
-            <Label Text="{Binding PrintValues}"
-                   Style="{StaticResource labelStyle}"/>
-            <Button Text="Przełącz Widok" 
-                    BackgroundColor="DodgerBlue"
-                    Style="{StaticResource buttonStyle}"
-                    Command="{Binding SwitchViewCommand}"/>
-
-            <Grid>
+            <Grid Style="{StaticResource gridStyle}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100*"/>
-                    <RowDefinition Height="100*"/>
-                    <RowDefinition Height="100*"/>
-                    <RowDefinition Height="100*"/>
-                    <RowDefinition Height="100*"/>
                     <RowDefinition Height="100*"/>
                     <RowDefinition Height="100*"/>
                     <RowDefinition Height="100*"/>
@@ -58,22 +41,29 @@
                     <RowDefinition Height="100*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10*" />
-                    <ColumnDefinition Width="10*" />
-                    <ColumnDefinition Width="10*" />
-                    <ColumnDefinition Width="10*" />
-                    <ColumnDefinition Width="10*" />
-                    <ColumnDefinition Width="10*" />
-                    <ColumnDefinition Width="10*" />
-                    <ColumnDefinition Width="10*" />
-                    <ColumnDefinition Width="10*" />
-                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="32*" />
+                    <ColumnDefinition Width="38*" />
+                    <ColumnDefinition Width="32*" />
                 </Grid.ColumnDefinitions>
 
-                <Frame  Grid.Column="0"
+                <Button Text="{Binding PrintValues}"
+                        Style="{StaticResource buttonStyle}"
+                        Grid.Column="0"
                         Grid.Row="0"
-                        Grid.ColumnSpan="10"
-                        Grid.RowSpan="10"
+                        Grid.ColumnSpan="2"
+                        x:Name="Label"/>
+
+                <Button Text="Przełącz Widok"
+                        Style="{StaticResource buttonStyle}"
+                        Command="{Binding SwitchViewCommand}"
+                        Grid.Column="2"
+                        Grid.Row="0"
+                        x:Name="Switch"/>
+
+                <Frame  Grid.Column="0"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="3"
+                        Grid.RowSpan="4"
                         Style="{StaticResource surfaceStyle}">
 
                     <urho:UrhoSurface

@@ -16,6 +16,9 @@ namespace CarMobileApp.Views
             dataSender = DataSender.GetSingleInstance();
 
             BindingContext = new SensorViewModel(Navigation, dataSender);
+
+            Label.BackgroundColor = new Color(1, 1, 1, 0.5);
+            Switch.BackgroundColor = new Color(1, 1, 1, 0.5);
         }
 
         protected override async void OnAppearing()

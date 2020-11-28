@@ -15,6 +15,9 @@ namespace CarMobileApp.Views
             dataSender = DataSender.GetSingleInstance();
 
             BindingContext = new ButtonsViewModel(Navigation, dataSender);
+
+            Label.BackgroundColor = new Color(1, 1, 1, 0.5);
+            Switch.BackgroundColor = new Color(1, 1, 1, 0.5);
         }
     }
 }
