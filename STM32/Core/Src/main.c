@@ -328,7 +328,7 @@ void CaseAccelerometer(void){
 	}
 	else{
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9 , GPIO_PIN_SET);
 	}
 
 	if(dataUART1[6] < 50){
@@ -337,15 +337,34 @@ void CaseAccelerometer(void){
 	else{
 		SetPWM(1, 100*dataUART1[6]);
 	}
+
+	//right/left
+
+	if((char)dataUART1[3] == '+'){
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_RESET);
+	}
+	else{
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1 , GPIO_PIN_SET);
+	}
+
+	if(dataUART1[6] < 50){
+		SetPWM(2, 100*dataUART1[4]);
+	}
+	else{
+		SetPWM(2, 1000);
+	}
+
 }
 
 void CaseButtons(void){
 	//throttle
-	if(dataUART1[5] == '+'){
+	if((char)dataUART1[5] == '+'){
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_SET);
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, GPIO_PIN_RESET);
 	}
-	else{
+	if((char)dataUART1[5] == '-'){
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, GPIO_PIN_SET);
 	}
@@ -355,6 +374,24 @@ void CaseButtons(void){
 	}
 	else{
 		SetPWM(1, 100*dataUART1[6]);
+	}
+
+	//right/left
+
+	if((char)dataUART1[3] == '+'){
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_RESET);
+	}
+	if((char)dataUART1[3] == '-'){
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1 , GPIO_PIN_SET);
+	}
+
+	if(dataUART1[4] < 50){
+		SetPWM(2, 150*(dataUART1[6]+dataUART1[3]));
+	}
+	else{
+		SetPWM(2, 100*(dataUART1[6]+dataUART1[3]));
 	}
 }
 
@@ -475,6 +512,10 @@ int main(void)
   //forward/back
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, GPIO_PIN_RESET);
+
+  //right/left
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
 
   //enable uart interrupt
   HAL_UART_Receive_IT(&huart1, dataUART1, 9);
@@ -670,6 +711,9 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0|GPIO_PIN_1, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
@@ -680,6 +724,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PC0 PC1 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : USART_TX_Pin USART_RX_Pin */
   GPIO_InitStruct.Pin = USART_TX_Pin|USART_RX_Pin;

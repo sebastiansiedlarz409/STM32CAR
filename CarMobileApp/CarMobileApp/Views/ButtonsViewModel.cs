@@ -154,8 +154,7 @@ namespace CarMobileApp.Views
         {
             Connection = _sender.IsConnected();
 
-            if (Z >= 0.1)
-                Z -= 0.1;
+            Z -= 0.1;
 
             _sender.SendData(SenderMode.BUTTONS, (int)(X * 10), (int)(Y * 10), (int)(Z * 10));
         }
