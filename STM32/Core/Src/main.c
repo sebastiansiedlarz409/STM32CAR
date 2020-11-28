@@ -321,7 +321,12 @@ uint16_t CalculateChecksum(void){
 
 void CaseAccelerometer(void){
 	//throttle
-	SetPWM(1, 100*dataUART1[6]);
+	if(dataUART1[6] < 50){
+		SetPWM(1, 150*dataUART1[6]);
+	}
+	else{
+		SetPWM(1, 100*dataUART1[6]);
+	}
 }
 
 void CaseButtons(void){
@@ -446,6 +451,7 @@ int main(void)
   //enable uart interrupt
   HAL_UART_Receive_IT(&huart1, dataUART1, 9);
 
+  //SetPWM(1, 1000);
   printf("Config sent\r\n");
 
   /* USER CODE END 2 */
