@@ -9,6 +9,7 @@ namespace CarMobileApp
 
         private readonly string _modelPath = "Models/Car.mdl";
         private readonly string _scenePath = "Objects/Scene.xml";
+        private readonly string _texturesPath = "Textures/Karoseriatxt.png";
 
         //previous rotation
         private float X = 0;
@@ -49,6 +50,7 @@ namespace CarMobileApp
             //model
             StaticModel modelObject = _node.CreateComponent<StaticModel>();
             modelObject.Model = ResourceCache.GetModel(_modelPath);
+            modelObject.SetMaterial(Material.FromImage(ResourceCache.GetImage(_texturesPath)));
 
             //light
             lightNode.SetScale(30);
