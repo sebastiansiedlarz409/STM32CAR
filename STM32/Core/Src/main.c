@@ -349,12 +349,14 @@ void CaseAccelerometer(void){
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1 , GPIO_PIN_SET);
 	}
 
-	if(dataUART1[6] < 50){
+	SetPWM(2, 100*dataUART1[4]);
+
+	/*if(dataUART1[6] < 50){
 		SetPWM(2, 100*dataUART1[4]);
 	}
 	else{
 		SetPWM(2, 1000);
-	}
+	}*/
 
 }
 
@@ -449,7 +451,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	AnalyzeData();
 
 	HAL_NVIC_ClearPendingIRQ(USART1_IRQn);
-	ResetData();
+	//ResetData();
 	HAL_UART_Receive_IT(&huart1, dataUART1, 9);
 }
 

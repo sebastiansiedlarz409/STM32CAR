@@ -63,6 +63,8 @@ namespace CarMobileApp.Views
             _sender = sender;
 
             _sender.Connect();
+
+            _sender.SendData(SenderMode.BUTTONS, 0, 0, 0);
         }
 
         //this fuction notify property
