@@ -134,6 +134,9 @@ namespace CarMobileApp.Views
         public async Task Switch()
         {
             Accelerometer.Stop();
+
+            _sender.SendData(SenderMode.ACCELEROMETER, 0, 0, 0);
+
             await navigation.PushAsync(new Buttons());
         }
 

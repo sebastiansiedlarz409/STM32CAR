@@ -127,7 +127,8 @@ namespace CarMobileApp.Views
         {
             Connection = _sender.IsConnected();
 
-            Y -= 0.2;
+            if(Y >= -0.8)
+                Y -= 0.4;
 
             _sender.SendData(SenderMode.BUTTONS, (int)(X * 10), (int)(Y * 10), (int)(Z * 10));
         }
@@ -136,7 +137,8 @@ namespace CarMobileApp.Views
         {
             Connection = _sender.IsConnected();
 
-            Y += 0.2;
+            if(Y <= 0.8)
+                Y += 0.4;
 
             _sender.SendData(SenderMode.BUTTONS, (int)(X * 10), (int)(Y * 10), (int)(Z * 10));
         }
@@ -145,7 +147,8 @@ namespace CarMobileApp.Views
         {
             Connection = _sender.IsConnected();
 
-            Z += 0.1;
+            if(Z <= 1.2)
+                Z += 0.4;
 
             _sender.SendData(SenderMode.BUTTONS, (int)(X * 10), (int)(Y * 10), (int)(Z * 10));
         }
@@ -154,13 +157,16 @@ namespace CarMobileApp.Views
         {
             Connection = _sender.IsConnected();
 
-            Z -= 0.1;
+            if(Z >= -1.2)
+                Z -= 0.4;
 
             _sender.SendData(SenderMode.BUTTONS, (int)(X * 10), (int)(Y * 10), (int)(Z * 10));
         }
 
         public async Task Switch()
         {
+            _sender.SendData(SenderMode.BUTTONS, 0, 0, 0);
+
             await navigation.PushAsync(new Sensor());
         }
     }
