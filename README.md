@@ -24,7 +24,7 @@ Little toy car base on STM32 NUCLEO F103RB driven by mobile app using accelerome
 
 ![SCREENSHOT](./screenshot1.jpg)
 
-<img src="https://github.com/sebastiansiedlarz409/STM32CAR/blob/master/photo1.jpg" width="400" height="500" />
+<img src="https://github.com/sebastiansiedlarz409/STM32CAR/blob/master/photo1.jpg" width="440" height="500" />
 
 ## 3D Model By
 https://github.com/WerPla
