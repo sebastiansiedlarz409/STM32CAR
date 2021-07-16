@@ -25,5 +25,5 @@ https://github.com/WerPla
 
 ## Gallery
 
-<img align="left" src="https://github.com/sebastiansiedlarz409/STM32CAR/blob/master/screenshot1.jpg" width="580"/>
-<img align="left" src="https://github.com/sebastiansiedlarz409/STM32CAR/blob/master/photo1.jpg" width="220"/>
+<img align="left" src="https://github.com/sebastiansiedlarz409/STM32CAR/blob/master/screenshot1.jpg" width="500"/>
+<img align="left" src="https://github.com/sebastiansiedlarz409/STM32CAR/blob/master/photo1.jpg" width="180"/>
