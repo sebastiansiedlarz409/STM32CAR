@@ -20,11 +20,10 @@ Little toy car base on STM32 NUCLEO F103RB driven by mobile app using accelerome
 * In project we used H-bridge
 * Everything is powerd by powerbank 
 
-## Gallery
-
-![SCREENSHOT](./screenshot1.jpg)
-
-<img src="https://github.com/sebastiansiedlarz409/STM32CAR/blob/master/photo1.jpg" width="440" height="500" />
-
 ## 3D Model By
 https://github.com/WerPla
+
+## Gallery
+
+<img align="left" src="https://github.com/sebastiansiedlarz409/STM32CAR/blob/master/screenshot1.jpg" width="680"/>
+<img align="left" src="https://github.com/sebastiansiedlarz409/STM32CAR/blob/master/photo1.jpg" width="240"/>
